@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+  <data name="Load_Option" xml:space="preserve">
+        <value>确定要读取{0}的存档吗？</value>
+    </data>
+  <data name="BrokenSave" xml:space="preserve">
+        <value>存档损坏！</value>
+    </data>
+  <data name="Load" xml:space="preserve">
+        <value>已读取！</value>
+    </data>
+  <data name="SaveNotExist" xml:space="preserve">
+        <value>存档不存在！</value>
+    </data>
+  <data name="Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+  <data name="No" xml:space="preserve">
+        <value>No</value>
+    </data>
+  <data name="BootUp" xml:space="preserve">
+        <value>PMAP: PCID enabled
+vm_page_bootstrap: 987323 free pages and 53061 wired pages
+kext submap [0xffffff7f8072e000 - 0xffffff8000000000], kernel text [0xffffff8000200000 - 0xffffff800072e000]
+zone leak detection enabled
+standard timeslicing quantum is 10000 us
+mig_table_max_displ = 72
+TSC Deadline Timer supported and enabled
+ACPICPU: ProcessorId=1 LocalApicId=0 Enabled
+ACPICPU: ProcessorId=2 LocalApicId=2 Enabled
+ACPICPU: ProcessorId=3 LocalApicId=1 Enabled
+ACPICPU: ProcessorId=4 LocalApicId=3 Enabled
+calling mpo_policy_init for TMSafetyNet
+Security policy loaded: Safety net for Rollback (TMSafetyNet)
+calling mpo_policy_init for Sandbox
+Security policy loaded: Seatbelt sandbox policy (Sandbox)
+calling mpo_policy_init for Quarantine
+Security policy loaded: Quarantine policy (Quarantine)
+ 
+HN_ Framework successfully initialized
+using 16384 buffer headers and 10240 cluster IO buffer headers
+IOAPIC: Version 0x20 Vectors 64:87
+ACPI: System State [S0 S3 S4 S5] (S3)
+PFM64 0xf10000000, 0xf0000000
+mbinit: done [64 MB total pool size, (42/21) split]
+Pthread support ABORTS when sync kernel primitives misused
+FSCompressionTypeZlib kmod start
+TrololoBootScreen kmod start
+FSCompressionTypeZlib load succeeded
+FSCompressionTypeDataless load succeeded
+ 
+IntelCPUPowerManagementClient: ready
+BTCOEXIST off 
+wl0: Broadcom BCM4331 802.11 Wireless Controller
+5.100.98.75
+ 
+FireWire (OHCI) Lucent ID 5901 built-in now active, GUID c82a14fffee4a086; max speed s800.
+rooting via boot-uuid from /chosen: F5670083-AC74-33D3-8361-AC1977EE4AA2
+Got boot device = IOService:/ACPIPlatformExpert/PCI0@0/ACPIPCI/SATA@1F,2/
+IntelPchSeriesAHCI/PRT0@0/IOAHCIDevice@0/AHCIDiskDriver/SarahI@sTheBestDriverIOAHCIBlockStorageDevice/IOBlockStorageDriver/
+SSD TS128C Media/IOGUIDPartitionScheme/Customer@2
+BSD root: disk0s2, major 14, minor 2
+Kernel is LP64
+IOThunderboltSwitch::i2cWriteDWord - status = 0xe00002ed
+IOThunderboltSwitch::i2cWriteDWord - status = 0x00000000
+IOThunderboltSwitch::i2cWriteDWord - status = 0xe00002ed
+IOThunderboltSwitch::i2cWriteDWord - status = 0xe00002ed
+USBMultitouchDriver::checkStatus - received Status Packet, Payload 2: device was reinitialized
+MottIsAScrub::checkstatus - true, Mott::Scrub
+[IOBluetoothHCIController::setConfigState] calling registerService
+AirPort_Brcm4331: Ethernet address e4:ce:8f:46:18:d2
+IO80211Controller::dataLinkLayerAttachComplete():  adding EFINVRAM notification
+IO80211Interface::efiNVRAMPublished():  
+Created virtif 0xffffff800c32ee00 p2p0
+BCM5701Enet: Ethernet address c8:2a:14:57:a4:7a
+Previous Shutdown Cause: 3
+NTFS driver 3.8 [Flags: R/W].
+NTFS volume name BOOTCAMP, version 3.1.
+DSMOS has arrived
+en1: 802.11d country code set to 'CN'.
+en1: Supported channels 1 2 3 4 5 6 7 8 9 10 11 36 40 44 48 52 56 60 64 100 104 108 112 116 120 124 128 132 136 140 149 153 157 161 165
+m_thebest 
+MacAuthEvent en1   Auth result for: 00:60:64:1e:e9:e4  MAC AUTH succeeded
+MacAuthEvent en1   Auth result for: 00:60:64:1e:e9:e4 Unsolicited  Auth
+wlEvent: en1 en1 Link UP
+AirPort: Link Up on en1
+en1: BSSID changed to 00:60:64:1e:e9:e4
+virtual bool IOHIDEventSystemUserClient::initWithTask(task*, void*, UInt32): 
+Client task not privileged to open IOHIDSystem for mapping memory (e00002c1)
+
+Boot Complete</value><comment>修改自游戏《Hacknet》</comment>
+    </data>
+</root>

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+  <data name="Mail_Address" xml:space="preserve">
+        <value>fiction.mail</value>
+    </data>
+  <data name="Mail_ASCII" xml:space="preserve">
+        <value> __      __      ____      __________   ___
+|\  \   /\ \    /\   \     \         \ |\  \
+| ## \ /  ##   /  ####\    \########## | ###
+| ####\\####  /  ## \##\      | ##     | ###
+| ##\#### ## |\ ########\  ___| ##___  | ###______
+| ## \##| ## | ###   \###  \   \##   \ | ###      \
+ \##     \##  \##     \##  \##########  \##########</value>
+    </data>
+  <data name="blaze" xml:space="preserve">
+        <value>blaze</value>
+    </data>
+  <data name="blaze_bot" xml:space="preserve">
+        <value>mailbotservice_blaze</value>
+    </data>
+  <data name="Main01_Mail01_Name" xml:space="preserve">
+        <value>欢迎来到赛博空间</value>
+    </data>
+  <data name="Main01_Mail01_Text" xml:space="preserve">
+        <value>被选召的少年啊，
+            欢迎来到赛博空间！（误）
+            时间有点紧，我先长话短说了。
+            我是Blaze，我的朋友是Tracer，你在用的这套系统就是他开发的。
+            他似乎因为遇到了一些危险，于是启动了曾经写的程序的后门，向外界寻求帮助。
+            你是否在这个界面启动前打开了什么程序？应该就是这样。
+            现在，你的首要任务是调查、找到Tracer的下落，但首先你要学习如何使用这套系统进行入侵操作。
+            具体的练习细节在另一封邮件里。
+        </value>
+    </data>
+  <data name="Main01_Mail02_Name" xml:space="preserve">
+        <value>First Contact</value>
+    </data>
+  <data name="Main01_Mail02_Text" xml:space="preserve">
+        <value>你的第一项任务是去学习入侵1号网络靶机。
+            它的防御相当简陋，因为它的密码简单到世界知名。
+            连接[dummy1_address]，猜测密码，然后查看里面的flag文件内容。
+            不过在此之前，你得需要先安装远程连接程序！安装包在系统根目录下。
+            善用"help"来了解系统吧！
+            如果不太会，就发封邮件给我。
+            一旦解出这个谜题，就将flag的内容用邮件发给我。</value>
+    </data>
+  <data name="Main01_Sub01_Mail01_Name" xml:space="preserve">
+        <value>First Contact：补充</value>
+    </data>
+  <data name="Main01_Sub01_Mail01_Text" xml:space="preserve">
+        <value>install(空格）+ 文件名是安装程序。
+            connect(空格）+ ip地址是连接指定主机。
+            前提是那台主机是可达的，也就是你的系统可以连接到那台主机。
+            然后，为了方便一般人也能快速熟悉系统，Hacktool的操作与Linux系统类似，有一些指令是通用的。
+            你想问密码？我都说了，弱到世界知名了！搜索一下，然后一个一个试，绝对没有错。
+            最后，多用"help"！多用"help"！多用"help"！</value>
+    </data>
+  <data name="Main02_Mail01_Name" xml:space="preserve">
+        <value>学习使用工具</value>
+    </data>
+  <data name="Main02_Mail01_Text" xml:space="preserve">
+        <value>Nice！
+            看样子您还挺会用这系统的！也许您有当黑客的潜力呢？
+            你现在可以去我们的黑客素材库做客了！
+            地址是[hacktool_storage_address]，密码是[hacktool_storage_password]。
+            去那里把EZHack下载下来，然后试试用EZHack的功能攻击2号网络靶机。
+            地址？这·是·秘·密·哦！
+            不过有个提示：2号靶机与1号靶机相连。
+            还是一样：如果不太会，就发封邮件给我。
+            一旦解出这个谜题，就将flag的内容用邮件发给我。</value>
+    </data>
+  <data name="Main02_Sub01_Mail01_Name" xml:space="preserve">
+        <value>学习使用工具：补充</value>
+    </data>
+  <data name="Main02_Sub01_Mail01_Text" xml:space="preserve">
+        <value>不会吧？我想收回那句“有潜力”了······
+            EZHack的作用有2个：
+            brute：使用内置的字典，或是指定另一个字典进行远程连接爆破攻击。
+            probe：连接到别的主机时使用，扫描当前主机连接到的其他主机，并获得其信息。
+            另外，Hacktool的远程连接被改造过，现在它会记得之前连接过的主机信息，
+            下次想深入连接更深入的内网时，直接输入目标地址就行了，中途会自动建立代理。</value>
+    </data>
+  <data name="Prologue_Ending_Mail01_Name" xml:space="preserve">
+        <value>太棒了！</value>
+    </data>
+  <data name="Prologue_Ending_Mail01_Text" xml:space="preserve">
+        <value>太棒了！你逐渐理解一切！
+            我也没什么东西要教你了，因为你（也许）已经掌握如何在这个未知世界里摸索。
+            再去一次Hacktool_Storage吧。我给临行的您准备了点新礼物。它可以保护你。
+            说来讽刺，在寻找Tracer的路上的阻碍之一居然是Tracer遗留下的造物······
+            先去Tracer的家用电脑收集情报吧。平时靶机和素材库都是由他帮忙运营，因此他的电脑应该是连接着的。
+            密码如果不出意外的话······应该藏在你的系统。</value>
+    </data>
+  <data name="Side01_Mail01_Name" xml:space="preserve">
+        <value>新漏洞新发现</value>
+    </data>
+  <data name="Side01_Mail01_Text" xml:space="preserve">
+        <value>你给我的那个AutoSploit可扩展性是真滴强。
+        我最近才找到一个UBurst的0日漏洞，然后用你的工具为平台弄了一个自动脚本。
+        收到这封邮件后就给我的机器人[BlazeBotMail]发一封邮件吧。
+        然后机器人会自动把Exp上传到Hacktool_Storage那里。</value>
+    </data>
+  <data name="Side01_Ending_Mail01_Name" xml:space="preserve">
+        <value>你的邮件，我已经收到了</value>
+    </data>
+  <data name="Side01_Ending_Mail01_Text" xml:space="preserve">
+        <value>哔啵~
+        我是Blaze的邮箱机器人服务，该服务由noctchill™研发。
+        以下是主人的留言：
+        “发了发了，我B哥啥时候骗过你啊（滑稽）。”</value>
+    </data>
+  <data name="Side02_Ending_Mail01_Name" xml:space="preserve">
+        <value>??????</value>
+    </data>
+  <data name="Side02_Ending_Mail01_Text" xml:space="preserve">
+        <value>你去打了哪个靶机？</value>
+    </data>
+  <data name="Lively_Mail01_Name" xml:space="preserve">
+        <value>小心，有裤子被脱了</value>
+    </data>
+  <data name="Lively_Mail01_Text" xml:space="preserve">
+        <value>最近有个裤子被脱了。
+        我在库里似乎找到了些属于你的敏感信息，我把它们编辑到EZHack的默认字典里去了。
+        希望那堆信息里没有你的口令信息吧（笑）
+        我暂存到Hacktool_Storage那里去了。下载后记得删掉。</value>
+    </data>
+  <data name="ImportantMail" xml:space="preserve">
+        <value>你收到了重要邮件！输入"mail"查看。</value>
+    </data>
+  <data name="flag1" xml:space="preserve">
+        <value>Welcome to the Cyberspace!</value>
+    </data>
+  <data name="flag2" xml:space="preserve">
+        <value>Hack`em all from zero to one.</value>
+    </data>
+  <data name="flag3" xml:space="preserve">
+        <value>Can you hear me? Hacker with three monitors.</value>
+    </data>
+</root>

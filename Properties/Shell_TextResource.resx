@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+  <data name="FileNotExist" xml:space="preserve">
+    <value>文件（夹）不存在！</value>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>已安装！</value>
+  </data>
+  <data name="NameConflict" xml:space="preserve">
+    <value>存在同名文件（夹）！</value>
+  </data>
+  <data name="MismatchedFormat" xml:space="preserve">
+    <value>文件格式错误！</value>
+  </data>
+  <data name="UnknownArgument" xml:space="preserve">
+    <value>未知参数！请输入“help”查阅帮助信息</value>
+  </data>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>未知指令！请输入“help”查阅帮助信息</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Saving current process...</value>
+  </data>
+  <data name="RequireDLL" xml:space="preserve">
+    <value>缺少HackTool.dll!</value>
+  </data>
+  <data name="Help_HackTool" xml:space="preserve">
+    <value> ___  ___  ________  ________  ___  __            _________  ________  ________  ___
+|\  \|\  \|\   __  \|\   ____\|\  \|\  \         |\___   ___\\   __  \|\   __  \|\  \
+\ \  \\\  \ \  \|\  \ \  \___|\ \  \/  /|_       \|___ \  \_\ \  \|\  \ \  \|\  \ \  \
+ \ \   __  \ \   __  \ \  \    \ \   ___  \           \ \  \ \ \  \\\  \ \  \\\  \ \  \
+  \ \  \ \  \ \  \ \  \ \  \____\ \  \\ \  \           \ \  \ \ \  \\\  \ \  \\\  \ \  \_____
+   \ \__\ \__\ \__\ \__\ \_______\ \__\\ \__\           \ \__\ \ \_______\ \_______\ \_______\
+    \|__|\|__|\|__|\|__|\|_______|\|__| \|__|            \|__|  \|_______|\|_______|\|_______|</value>
+  </data>
+  <data name="Help_UBurst" xml:space="preserve">
+    <value>|\     /|(  ___ \ |\     /|(  ____ )(  ____ \\__   __/
+| )   ( || (   ) )| )   ( || (    )|| (    \/   ) (   
+| |   | || (__/ / | |   | || (____)|| (_____    | |   
+| |   | ||  __ (  | |   | ||     __)(_____  )   | |   
+| |   | || (  \ \ | |   | || (\ (         ) |   | |   
+| (___) || )___) )| (___) || ) \ \__/\____) |   | |   
+(_______)|/ \___/ (_______)|/   \__/\_______)   )_(</value>
+  </data>
+  <data name="Help_Door" xml:space="preserve">
+    <value>   ___                  ____  ____
+  / _ \___  ___  ____  / __ \/ __/
+ / // / _ \/ _ \/ __/ / /_/ /\ \  
+/____/\___/\___/_/    \____/___/</value>
+  </data>
+  <data name="ls" xml:space="preserve">
+    <value>ls (可选)[目录] 列出本目录下所有文件和目录</value>
+  </data>
+  <data name="cd" xml:space="preserve">
+    <value>cd [目录] 前往该目录</value>
+  </data>
+  <data name="mkdir" xml:space="preserve">
+    <value>mkdir [目录] 创建新目录</value>
+  </data>
+  <data name="rm" xml:space="preserve">
+    <value>rm [目录/文件] 删除文件或目录</value>
+  </data>
+  <data name="mv" xml:space="preserve">
+    <value>mv [旧目录/文件] [新目录/文件] 移动文件或目录</value>
+  </data>
+  <data name="cp" xml:space="preserve">
+    <value>cp [旧目录/文件] [新目录/文件] 复制文件或目录</value>
+  </data>
+  <data name="install" xml:space="preserve">
+    <value>install [可执行文件] 安装新程序</value>
+  </data>
+  <data name="cat" xml:space="preserve">
+    <value>cat [目录/文件] 将目标文件以文本文件形式输出</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>help 打开帮助</value>
+  </data>
+  <data name="InstallAction_Finish" xml:space="preserve">
+    <value>安装成功！输入“help”查看新命令。</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>save 保存当前系统快照</value>
+  </data>
+  <data name="load" xml:space="preserve">
+    <value>load 恢复系统快照(PS：可能会伴随着小规模的时空回溯)</value>
+  </data>
+</root>
