@@ -118,16 +118,7 @@ namespace WarzoneConnect.Planner.PlotMaker
                         return email.Text.Contains(PlotConfig.flag1) ? new []{Main02.Main} : new[] {Sub02};
                     });
 
-                internal static readonly PlotObserver.ObjectiveNode Main = new PlotObserver.ObjectiveNode(() =>
-                    {
-                        MailClient.GetMailBox(GameController.HostList[0])
-                            .AddMail(BlazeMail, PlotConfig.Main01_Mail01_Name,
-                                PlotConfig.Main01_Mail01_Text.Trim(),DateTime.Now.AddSeconds(-30));
-                        MailClient.GetMailBox(GameController.HostList[0])
-                            .AddMail(BlazeMail, PlotConfig.Main01_Mail02_Name,
-                                PlotConfig.Main01_Mail02_Text.Trim().Replace("[dummy1_address]",GameController.HostList[4].Addr)); 
-                        NotifyImportantMail();
-                    },BlazeMail,
+                internal static readonly PlotObserver.ObjectiveNode Main = new PlotObserver.ObjectiveNode(NotifyImportantMail,BlazeMail,
                     email =>
                     {
                         if (email.From != GameController.HostList[0].User + '@' + PlotConfig.Mail_Address)
@@ -153,12 +144,7 @@ namespace WarzoneConnect.Planner.PlotMaker
         
         internal static List<PlotObserver.ObjectiveNode> GetStartPoint()
         {
-            //Side01提示邮件
-            MailClient.GetMailBox(GameController.HostList[2])
-                .AddMail(BlazeMail, PlotConfig.Side01_Mail01_Name,
-                    PlotConfig.Side01_Mail01_Text.Trim().Replace("[BlazeBotMail]",BlazeBotMail),new DateTime(2020,7,30,12,24,39));
             LivelyMail();
-            
             return Prologue.StartPoint().ToList();
         } //定义开始的节点及行为
 
@@ -177,14 +163,40 @@ namespace WarzoneConnect.Planner.PlotMaker
         //生成日常邮件
         private static void LivelyMail()
         {//TODO 发挥想象力
+            //游戏开局，告知M01的两封邮件
+            MailClient.GetMailBox(GameController.HostList[0])
+                .AddMail(BlazeMail, 
+                    PlotConfig.Main01_Mail01_Name,
+                    PlotConfig.Main01_Mail01_Text.Trim().Replace("[dummy1_address]",GameController.HostList[4].Addr),
+                    new DateTime(2020,8,7,9,22,23));
+            MailClient.GetMailBox(GameController.HostList[0])
+                .AddMail(BlazeMail, 
+                    PlotConfig.Main01_Mail02_Name,
+                    PlotConfig.Main01_Mail02_Text.Trim(),
+                    new DateTime(2020,8,14,16,11,05));
+            
             //Side01提示邮件
             MailClient.GetMailBox(GameController.HostList[2])
-                .AddMail(BlazeMail, PlotConfig.Side01_Mail01_Name,
-                    PlotConfig.Side01_Mail01_Text.Trim().Replace("[BlazeBotMail]",BlazeBotMail),new DateTime(2020,7,30,12,24,39));
+                .AddMail(BlazeMail, 
+                    PlotConfig.Side01_Mail01_Name,
+                    PlotConfig.Side01_Mail01_Text.Trim().Replace("[BlazeBotMail]",BlazeBotMail),
+                    new DateTime(2020,8,1,12,24,39));
+            
             //storage提示邮件
             MailClient.GetMailBox(GameController.HostList[2])
                 .AddMail(BlazeMail, PlotConfig.Lively_Mail01_Name,
-                    PlotConfig.Lively_Mail01_Text.Trim(),new DateTime(2020,8,6,12,24,39));
+                    PlotConfig.Lively_Mail01_Text.Trim(),new DateTime(2020,8,3,12,24,39));
+            MailClient.GetMailBox(GameController.HostList[2])
+                .AddMail(BlazeMail, PlotConfig.Lively_Mail02_Name,
+                    PlotConfig.Lively_Mail02_Text.Trim(),new DateTime(2020,8,5,10,00,54));
+            
+            //周报广告
+            MailClient.GetMailBox(GameController.HostList[2])
+                .AddMail(PlotConfig.daily_world, PlotConfig.Lively_Mail03_Name,
+                    PlotConfig.Lively_Mail03_Text.Trim(),new DateTime(2020,8,2,9,00,05));
+            MailClient.GetMailBox(GameController.HostList[2])
+                .AddMail(PlotConfig.daily_world, PlotConfig.Lively_Mail04_Name,
+                    PlotConfig.Lively_Mail04_Text.Trim(),new DateTime(2020,8,2,9,00,06));
         }
     }
 }

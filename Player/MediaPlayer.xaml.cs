@@ -34,6 +34,10 @@ namespace WarzoneConnect.Player
             }
             InitializeComponent();
             playerWindow.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4");
+        }
+
+        internal void Play()
+        {
             ShowDialog();
         }
 
@@ -74,7 +78,7 @@ namespace WarzoneConnect.Player
                         case MediaFile video1:
                             try
                             {
-                                new MediaPlayer(video1.FileName);
+                                new MediaPlayer(video1.FileName).Play();
                             }
                             catch
                             {
