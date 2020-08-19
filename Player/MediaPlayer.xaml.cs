@@ -25,9 +25,9 @@ namespace WarzoneConnect.Player
     {
         public MediaPlayer(string name)
         {
-            using (var resxSet = new ResourceSet(@".\Media.resource"))
+            using (var resourceSet = new ResourceSet(@".\Media.resource"))
             {
-                var temp = (byte[])resxSet.GetObject(name);
+                var temp = (byte[])resourceSet.GetObject(name);
                 var fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4", FileMode.OpenOrCreate);
                 fileStream.Write(temp ?? throw new InvalidOperationException(), 0, temp.Length);
                 fileStream.Close();

@@ -1,127 +1,145 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- ReSharper disable MarkupTextTypo -->
 <root>
-	<!-- 
-		Microsoft ResX Schema
-
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-  <data name="Mail_Address" xml:space="preserve">
-        <value>fiction.mail</value>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Mail_Address" xml:space="preserve">
+    <value>fiction.mail</value>
+  </data>
   <data name="Mail_ASCII" xml:space="preserve">
-        <value> __      __      ____      __________   ___
+    <value> __      __      ____      __________   ___
 |\  \   /\ \    /\   \     \         \ |\  \
 | ## \ /  ##   /  ####\    \########## | ###
 | ####\\####  /  ## \##\      | ##     | ###
 | ##\#### ## |\ ########\  ___| ##___  | ###______
 | ## \##| ## | ###   \###  \   \##   \ | ###      \
  \##     \##  \##     \##  \##########  \##########</value>
-    </data>
+  </data>
   <data name="blaze" xml:space="preserve">
-        <value>blaze</value>
-    </data>
+    <value>blaze</value>
+  </data>
   <data name="blaze_bot" xml:space="preserve">
-        <value>mailbotservice_blaze</value>
-    </data>
+    <value>mailbotservice_blaze</value>
+  </data>
   <data name="Main01_Mail01_Name" xml:space="preserve">
-        <value>First Contact</value>
-    </data>
+    <value>First Contact</value>
+  </data>
   <data name="Main01_Mail01_Text" xml:space="preserve">
-        <value>收到该邮件的人，请按照下面指示操作：
+    <value>收到该邮件的人，请按照下面指示操作：
             1. 入侵1号网络靶机。
             它的防御相当简陋，因为它的密码简单到世界知名。
             先安装远程连接程序。安装包在系统根目录下。
@@ -129,18 +147,18 @@
             2. 将靶机的flag的内容用邮件发给该邮件发件人的地址。
             利用"help"了解系统操作。
             如果不会，就发封邮件过来。</value>
-    </data>
+  </data>
   <data name="Main01_Mail02_Name" xml:space="preserve">
-        <value>没有人吗？</value>
-    </data>
+    <value>没有人吗？</value>
+  </data>
   <data name="Main01_Mail02_Text" xml:space="preserve">
-        <value>······已经失踪2周了，没有人找得到这个系统吗？</value>
-    </data>
+    <value>······已经失踪2周了，没有人找得到这个系统吗？</value>
+  </data>
   <data name="Main01_Sub01_Mail01_Name" xml:space="preserve">
-        <value>First Contact：补充</value>
-    </data>
+    <value>First Contact：补充</value>
+  </data>
   <data name="Main01_Sub01_Mail01_Text" xml:space="preserve">
-        <value>
+    <value>
             时间有点紧，我先长话短说了。
             install(空格）+ 文件名是安装程序。
             connect(空格）+ ip地址是连接指定主机。
@@ -148,12 +166,12 @@
             然后，为了方便一般人也能快速熟悉系统，Hacktool的操作与Linux系统类似，有一些指令是通用的。
             你想问密码？我都说了，弱到世界知名了！搜索一下，然后一个一个试，绝对没有错。
             最后，多用"help"！多用"help"！多用"help"！</value>
-    </data>
+  </data>
   <data name="Main02_Mail01_Name" xml:space="preserve">
-        <value>学习使用工具</value>
-    </data>
+    <value>学习使用工具</value>
+  </data>
   <data name="Main02_Mail01_Text" xml:space="preserve">
-        <value>Nice！
+    <value>Nice！
             看样子您还挺会用这系统的！也许您有当黑客的潜力呢？
             我是Blaze，我的朋友是Tracer，你在用的这套系统就是他开发的。
             他似乎因为遇到了一些危险，于是启动了曾经写的程序的后门，向外界寻求帮助。
@@ -164,80 +182,80 @@
             不过2号靶机与1号靶机相连。
             还是一样：如果不太会，就发封邮件给我。
             一旦解出这个谜题，就将flag的内容用邮件发给我。</value>
-    </data>
+  </data>
   <data name="Main02_Sub01_Mail01_Name" xml:space="preserve">
-        <value>学习使用工具：补充</value>
-    </data>
+    <value>学习使用工具：补充</value>
+  </data>
   <data name="Main02_Sub01_Mail01_Text" xml:space="preserve">
-        <value>不会吧？我想收回那句“有潜力”了······
+    <value>不会吧？我想收回那句“有潜力”了······
             EZHack的作用有2个：
             brute：使用内置的字典，或是指定另一个字典进行远程连接爆破攻击。
             probe：连接到别的主机时使用，扫描当前主机连接到的其他主机，并获得其信息。
             另外，Hacktool的远程连接被改造过，现在它会记得之前连接过的主机信息，
             下次想深入连接更深入的内网时，直接输入目标地址就行了，中途这个工具会自动建立代理。</value>
-    </data>
+  </data>
   <data name="Prologue_Ending_Mail01_Name" xml:space="preserve">
-        <value>太棒了！</value>
-    </data>
+    <value>太棒了！</value>
+  </data>
   <data name="Prologue_Ending_Mail01_Text" xml:space="preserve">
-        <value>太棒了！你逐渐理解一切！
+    <value>太棒了！你逐渐理解一切！
             我也没什么东西要教你了，因为你（也许）已经掌握如何在这个未知世界里摸索。
             再去一次Hacktool_Storage吧。我给临行的您准备了点新礼物。它可以保护你。
             说来讽刺，在寻找Tracer的路上的阻碍之一居然是Tracer遗留下的造物······
             先去Tracer的家用电脑收集情报吧。平时靶机和素材库都是由他帮忙运营，因此他的电脑应该是连接着的。
             密码如果不出意外的话······他应该藏在你的系统。</value>
-    </data>
+  </data>
   <data name="Side01_Mail01_Name" xml:space="preserve">
-        <value>新漏洞新发现</value>
-    </data>
+    <value>新漏洞新发现</value>
+  </data>
   <data name="Side01_Mail01_Text" xml:space="preserve">
-        <value>你给我的那个AutoSploit可扩展性是真滴强。
+    <value>你给我的那个AutoSploit可扩展性是真滴强。
         我最近才找到一个UBurst的0日漏洞，然后用你的工具为平台弄了一个自动脚本。
         收到这封邮件后就给我的机器人[BlazeBotMail]发一封邮件吧。
         然后机器人会自动把Exp上传到Hacktool_Storage那里。</value>
-    </data>
+  </data>
   <data name="Side01_Ending_Mail01_Name" xml:space="preserve">
-        <value>你的邮件，我已经收到了</value>
-    </data>
+    <value>你的邮件，我已经收到了</value>
+  </data>
   <data name="Side01_Ending_Mail01_Text" xml:space="preserve">
-        <value>哔啵~
+    <value>哔啵~
         我是Blaze的邮箱机器人服务，该服务由noctchill™研发。
         以下是主人的留言：
         “发了发了，我B哥啥时候骗过你啊（滑稽）。”</value>
-    </data>
+  </data>
   <data name="Side02_Ending_Mail01_Name" xml:space="preserve">
-        <value>??????</value>
-    </data>
+    <value>??????</value>
+  </data>
   <data name="Side02_Ending_Mail01_Text" xml:space="preserve">
-        <value>你去打了哪个靶机？</value>
-    </data>
+    <value>你去打了哪个靶机？</value>
+  </data>
   <data name="Lively_Mail01_Name" xml:space="preserve">
-        <value>小心，有裤子被脱了</value>
-    </data>
+    <value>小心，有裤子被脱了</value>
+  </data>
   <data name="Lively_Mail01_Text" xml:space="preserve">
-        <value>最近有个裤子被脱了。
+    <value>最近有个裤子被脱了。
         我在库里似乎找到了些属于你的敏感信息，我把它们编辑到EZHack的默认字典里去了。
         希望那堆信息里没有你的口令信息吧（笑）
         我暂存到Hacktool_Storage那里去了。下载后记得删掉。</value>
-    </data>
-    <data name="Lively_Mail02_Name" xml:space="preserve">
-        <value>还没删掉吗？</value>
-    </data>
-    <data name="Lively_Mail02_Text" xml:space="preserve">
-        <value>你是不是丝毫对密码泄露不上心啊？
+  </data>
+  <data name="Lively_Mail02_Name" xml:space="preserve">
+    <value>还没删掉吗？</value>
+  </data>
+  <data name="Lively_Mail02_Text" xml:space="preserve">
+    <value>你是不是丝毫对密码泄露不上心啊？
             如果是这样，我就拿这个字典把所有网站都炸一遍，
             然后简介全部写上"Tracer你好菜啊"如何？
             
             话说，你已经好几天没和我，还有Wardog的其他人发邮件了。你最近很忙吗？</value>
-    </data>
-    <data name="Lively_Mail03_Name" xml:space="preserve">
-        <value><![CDATA[<AD>这周的国内大事记(1/2)]]></value>
-    </data>
-    <data name="Lively_Mail03_Text" xml:space="preserve">
-        <value>本周的国内大事记：
+  </data>
+  <data name="Lively_Mail03_Name" xml:space="preserve">
+    <value>&lt;AD&gt;这周的国内大事记(1/2)</value>
+  </data>
+  <data name="Lively_Mail03_Text" xml:space="preserve">
+    <value>本周的国内大事记：
             1. 新星游戏制作人离奇失踪？
             · 独立游戏制作人Tracer据报已音信全无长达72小时。其家属已经报警。
-            · Tracer的新作《战区连结 Re://Deploy》预定于8月1日直播公布，但从7月29日开始其朋友及家属就联络不到他。
+            · Tracer的新作《战区连结 RE://deploy》预定于8月1日直播公布，但从7月29日开始其朋友及家属就联络不到他。
             · 与Tracer合作的大型游戏厂商，静观暴雨的发言人称并不知情，“我们也想找到他”。
             · 据了解，Tracer的上部视觉小说游戏《永不落幕的舞台剧》以出众的剧情表现手法被业界誉为“独立游戏的破壁者”。
             
@@ -249,28 +267,27 @@
             · 于上次大战时研发的C.O.F.F.I.N.技术利用神经连接让飞行员直接操控战斗机，该科技后来在大战结束后公开。
             
             欢迎订阅杂志《天下朝闻·大事记周刊》！如果不想再收到该广告邮件，请点击下</value>
-    </data>
-    <data name="Lively_Mail04_Name" xml:space="preserve">
-        <value><![CDATA[<AD>这周的国内大事记(2/2)]]></value>
-    </data>
-    <data name="Lively_Mail04_Text" xml:space="preserve">
-        <value>检测到该邮件存在垃圾链接。
+  </data>
+  <data name="Lively_Mail04_Name" xml:space="preserve">
+    <value>&lt;AD&gt;这周的国内大事记(2/2)</value>
+  </data>
+  <data name="Lively_Mail04_Text" xml:space="preserve">
+    <value>检测到该邮件存在垃圾链接。
         邮件过滤器已屏蔽该邮件。</value>
-    </data>
-    <data name="daily_world" xml:space="preserve">
-        <value>no-reply-daily-world</value>
-    </data>
+  </data>
+  <data name="daily_world" xml:space="preserve">
+    <value>no-reply-daily-world</value>
+  </data>
   <data name="ImportantMail" xml:space="preserve">
-        <value>你收到了重要邮件！输入"mail"查看。</value>
-    </data>
+    <value>你收到了重要邮件！输入"mail"查看。</value>
+  </data>
   <data name="flag1" xml:space="preserve">
-        <value>Welcome to the Cyberspace!</value>
-    </data>
+    <value>Welcome to the Cyberspace!</value>
+  </data>
   <data name="flag2" xml:space="preserve">
-        <value>Hack`em all from zero to one.</value>
-    </data>
+    <value>Hack`em all from zero to one.</value>
+  </data>
   <data name="flag3" xml:space="preserve">
-        <value>Can you hear me? Hacker with three monitors.</value>
-    </data>
+    <value>Can you hear me? Hacker with three monitors.</value>
+  </data>
 </root>
-        <!-- ReSharper restore MarkupTextTypo -->

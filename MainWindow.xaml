@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="WarzoneConnect" Height="750" Width="1280" Activated="OpenWindow" Closing="PrepareStart">
+        Title="WarzoneConnect" Height="750" Width="1280" Activated="OpenWindow" Closing="PrepareStart" Initialized="OpenWindow">
     <Grid Margin="0,0,0,0">
-        <MediaElement x:Name="Warzone_Intro" LoadedBehavior="Manual" MouseDown="SkipToNext" MediaEnded="LoadNext"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="473*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="641*"/>
+        </Grid.ColumnDefinitions>
+        <MediaElement x:Name="Warzone_Intro" LoadedBehavior="Manual" MouseDown="SkipToNext" MediaEnded="Replay" Grid.ColumnSpan="3"/>
+        <Image x:Name="Warzone_Title" HorizontalAlignment="Left" Height="230" Margin="165,276,0,0" VerticalAlignment="Top" Width="468" Source="pack://siteoforigin:,,,/Resources/warzone_connect.png" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

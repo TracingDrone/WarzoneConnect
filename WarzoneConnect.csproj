@@ -42,6 +42,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -121,6 +122,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalConfig.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\IntroMedia.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IntroMedia.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Link_TextResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -212,6 +218,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalConfig.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\IntroMedia.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>IntroMedia.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Link_TextResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Link_TextResource.Designer.cs</LastGenOutput>
@@ -247,6 +257,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stream.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warzone_connect.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

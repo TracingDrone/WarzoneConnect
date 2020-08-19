@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WarzoneConnect.Planner;
+using WarzoneConnect.Properties;
 
 namespace WarzoneConnect
 {
@@ -23,24 +25,19 @@ namespace WarzoneConnect
     /// </summary>
     public partial class MainWindow : Window
     {
-        Uri act;
-        Uri iw;
-        Uri intro;
-
-        int phase;
+        bool isTitleVisible = false;
         public MainWindow()
         {
             if (!File.Exists(@".\Save.resx"))
             {
                 //TODO 是否存在存档，没有就打开WZ
                 InitializeComponent();
-                act = new Uri(@"D:\Personal\Documents\Repo\C#\WarzoneConnect\bin\Debug\Resources\Airstrike_3x.mp4");
-                iw = new Uri(@"D:\Personal\Documents\Repo\C#\WarzoneConnect\bin\Debug\Resources\Airstrike_3x.mp4");
-                intro = new Uri(@"D:\Personal\Documents\Repo\C#\WarzoneConnect\bin\Debug\Resources\Airstrike_3x.mp4");
 
-                phase = 0;
+                byte[] tempByte = IntroMedia.stream;
+                var fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "stream.mp4", FileMode.OpenOrCreate);
+                fileStream.Write(tempByte ?? throw new InvalidOperationException(), 0, tempByte.Length);
+                Warzone_Intro.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory + "stream.mp4");
 
-                Warzone_Intro.Source = new Uri(@"D:\Personal\Documents\Repo\C#\WarzoneConnect\bin\Debug\Resources\Airstrike_3x.mp4");
                 ShowDialog();
                 Close();
 
@@ -71,28 +68,19 @@ namespace WarzoneConnect
 
         private void OpenWindow(object sender, EventArgs e)
         {
-            PlayIntro();
-        }
-
-        private void PlayIntro()
-        {
-            switch (phase)
-            {
-                case 0:
-                    Warzone_Intro.Source = act;
-                    break;
-                case 1:
-                    Warzone_Intro.Source = iw;
-                    break;
-                case 2:
-                    Warzone_Intro.Source = intro;
-                    break;
-                case 3:
-                    WarzoneConnect_Window.Close();
-                    return;
-            }
-            phase++;
             Warzone_Intro.Play();
+            Dispatcher.BeginInvoke((Action)delegate ()
+                {
+                    if(!isTitleVisible && Warzone_Intro.Position > new TimeSpan(0, 0, 10))
+                    {
+                        isTitleVisible = true;
+                        for (var i = 1; i <= 100; i++)
+                        {
+                            Warzone_Title.Opacity = i;
+                            Thread.Sleep(10);
+                        }
+                    }
+                });
         }
 
         private void PrepareStart(object sender, System.ComponentModel.CancelEventArgs e)
@@ -104,18 +92,22 @@ namespace WarzoneConnect
 
         private void SkipToNext(object sender, MouseButtonEventArgs e)
         {
-            PlayIntro();
-        }
-
-        private void LoadNext(object sender, RoutedEventArgs e)
-        {
-            if (phase < 2)
-                PlayIntro();
+            if (Warzone_Intro.Position < new TimeSpan(0, 0, 5))
+                Warzone_Intro.Position = new TimeSpan(0, 0, 5);
+            else if (Warzone_Intro.Position < new TimeSpan(0, 0, 10))
+                Warzone_Intro.Position = new TimeSpan(0, 0, 10);
             else
             {
-                Warzone_Intro.Stop();
-                Warzone_Intro.Play();
+                //TODO 弹窗提示大难临头
+                WarzoneConnect_Window.Close();
+                return;
             }
+                
+        }
+
+        private void Replay(object sender, RoutedEventArgs e)
+        {
+            Warzone_Intro.Position = new TimeSpan(0, 0, 10);
         }
     }
 }

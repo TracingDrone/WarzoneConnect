@@ -7,6 +7,7 @@ using WarzoneConnect.Properties;
 using System.Resources;
 using WarzoneConnect.Planner.PlotMaker;
 using WarzoneConnect.Player;
+using System.Threading.Tasks;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
@@ -53,7 +54,10 @@ namespace WarzoneConnect.Planner
             }
             else
             {
-                HostList = HostStorage.InitializeHost();
+
+                Task initTask = new Task(() =>
+                {
+                    HostList = HostStorage.InitializeHost();
                 
                 var rm = GlobalConfig.ResourceManager;
                 
@@ -61,7 +65,18 @@ namespace WarzoneConnect.Planner
                 WafServer.FirewallInstall(rm);
                 MailServer.RebuildMails();
                 AutoSploitServer.AddExploit(rm);
-                
+                });
+                //HostList = HostStorage.InitializeHost();
+
+                //var rm = GlobalConfig.ResourceManager;
+
+                //LinkStorage.ReLink(rm);
+                //WafServer.FirewallInstall(rm);
+                //MailServer.RebuildMails();
+                //AutoSploitServer.AddExploit(rm);
+
+                initTask.Start();
+
                 foreach (var s in GameController_TextResource.BootUp.Replace("\r\n","\n").Split('\n'))
                 {
                     if (s.Trim() == string.Empty)
@@ -72,7 +87,7 @@ namespace WarzoneConnect.Planner
                     Console.WriteLine(s);
                     Thread.Sleep(50);
                 }
-                Thread.Sleep(2000);
+                Task.WaitAny(initTask);
                 Console.Clear();
 
                 PlotObserver.InitializePlot();
