@@ -40,6 +40,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -263,6 +264,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\warzone_connect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\press_start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Into the Furnace.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

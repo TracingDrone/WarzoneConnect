@@ -55,16 +55,12 @@ namespace WarzoneConnect.Planner
             else
             {
 
-                Task initTask = new Task(() =>
-                {
+                var initTask = new Task(() =>
+                { 
                     HostList = HostStorage.InitializeHost();
-                
-                var rm = GlobalConfig.ResourceManager;
-                
-                LinkStorage.ReLink(rm);
-                WafServer.FirewallInstall(rm);
-                MailServer.RebuildMails();
-                AutoSploitServer.AddExploit(rm);
+                    var rm = GlobalConfig.ResourceManager;
+                    LinkStorage.ReLink(rm); WafServer.FirewallInstall(rm); MailServer.RebuildMails(); 
+                    AutoSploitServer.AddExploit(rm);
                 });
                 //HostList = HostStorage.InitializeHost();
 
@@ -87,11 +83,11 @@ namespace WarzoneConnect.Planner
                     Console.WriteLine(s);
                     Thread.Sleep(50);
                 }
-                Task.WaitAny(initTask);
-                Console.Clear();
 
+                initTask.Wait();
                 PlotObserver.InitializePlot();
                 PlotObserver.StartObserve();
+                Console.Clear();
             }
             WafServer.FirewallBootUp();
             MediaPlayer.RegisterMediaFile();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WarzoneConnect.Planner;
 using WarzoneConnect.Properties;
+// ReSharper disable StringLiteralTypo
 
 // ReSharper disable CommentTypo
 
@@ -25,7 +26,7 @@ namespace WarzoneConnect.Player
                 Console.BackgroundColor = ConsoleColor.Yellow;
             }
 
-            ShellCommandDict.fileIdentifier += IdentifyExp;
+            ShellCommandDict.FileIdentifier += IdentifyExp;
         }
         
         [Serializable]

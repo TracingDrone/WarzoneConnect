@@ -86,11 +86,12 @@ namespace WarzoneConnect.Planner.PlotMaker
             SaveLoadCommandInstall(hostList[0]);
 
             //TODO Test
-            MediaBuilder.BuildVideoResources(new List<string> {"Airstrike_3x","test"});//TODO 编辑此处，生成resource文件
-            foreach (var mediaFile in MediaBuilder.GetVideoResources())
+            MediaBuilder.BuildVideoResources("mw");//TODO 编辑此处，生成resource文件
+            foreach (var mediaFile in MediaBuilder.GetVideoResources("mw"))
             {
                 hostList[0].GetRoot().Add(mediaFile);
             }
+            hostList[0].GetRoot().Add(new Host.FileSystem.File("third.prproj"));
             hostList[0].GetRoot().Add(MediaPlayer.PlayExec);
             hostList[0].GetRoot().Add(new AutoSploit.ExpFile("DoorByPass","影响Door全系系统",new DateTime(2020,7,15), 0,"welcome to the storage of my delights and sorrows",0));
             //Test
@@ -115,11 +116,13 @@ namespace WarzoneConnect.Planner.PlotMaker
 
             // MediaBuilder.BuildVideoResources(new List<string> {"Airstrike_3x","test"});//TODO 编辑此处，生成resource文件
             var mwVideo = new Host.FileSystem.Dir("mwVideo");
-            foreach (var mediaFile in MediaBuilder.GetVideoResources())
+            foreach (var mediaFile in MediaBuilder.GetVideoResources("mw"))
             {
                 mwVideo.Add(mediaFile);
             }
             hostList[3].GetRoot().Add(mwVideo);
+            hostList[3].GetRoot().Add(new Host.FileSystem.Doc("备忘录","素材已经准备妥当了！该动手了！"));
+            hostList[3].GetRoot().Add(new Host.FileSystem.File("third.prproj"));
             //TODO 编辑media_storage的视频文件
 
             hostList[4].GetRoot().Add(new Host.FileSystem.Doc("flag",PlotConfig.flag1));

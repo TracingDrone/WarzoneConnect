@@ -163,6 +163,7 @@ namespace WarzoneConnect.Planner.PlotMaker
         //生成日常邮件
         private static void LivelyMail()
         {//TODO 发挥想象力
+            Console.Write(GameController.HostList[0].Addr);
             //游戏开局，告知M01的两封邮件
             MailClient.GetMailBox(GameController.HostList[0])
                 .AddMail(BlazeMail, 

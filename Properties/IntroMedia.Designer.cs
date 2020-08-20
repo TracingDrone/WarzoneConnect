@@ -61,6 +61,25 @@ namespace WarzoneConnect.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Into_the_Furnace {
+            get {
+                return ResourceManager.GetStream("Into_the_Furnace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap press_start {
+            get {
+                object obj = ResourceManager.GetObject("press_start", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
         internal static byte[] stream {

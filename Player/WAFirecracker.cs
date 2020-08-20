@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WarzoneConnect.Planner;
 using WarzoneConnect.Properties;
+// ReSharper disable CommentTypo
 
 namespace WarzoneConnect.Player
 {

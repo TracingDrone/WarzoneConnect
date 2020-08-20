@@ -69,7 +69,7 @@ namespace WarzoneConnect.Player
             internal Dir RootDir { get; }
             
             [Serializable]
-            internal abstract class File : ICloneable
+            internal class File : ICloneable
             {
                 internal File(string name)
                 {

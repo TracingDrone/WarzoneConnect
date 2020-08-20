@@ -567,7 +567,7 @@ namespace WarzoneConnect.Player
     internal static class ShellCommandDict
     {
         internal delegate void FileIdentify(Host.FileSystem.File file); //留给PlotObserver执行自动存档
-        internal static event FileIdentify fileIdentifier;
+        internal static event FileIdentify FileIdentifier;
         
         internal static readonly Shell.Command ChangeDirCommand = new Shell.Command(
             "cd",
@@ -654,7 +654,7 @@ namespace WarzoneConnect.Player
                                 Console.BackgroundColor = ConsoleColor.Blue;
                                 break;
                         }
-                        fileIdentifier?.Invoke(file);
+                        FileIdentifier?.Invoke(file);
                         Console.Write(file.Name);
                         Console.ResetColor();
                         Console.Write('\t');

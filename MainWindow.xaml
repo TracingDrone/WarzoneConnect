@@ -1,12 +1,13 @@
-﻿<Window x:Name="WarzoneConnect_Window" x:Class="WarzoneConnect.MainWindow"
+﻿<Window x:Name="WarzoneConnectWindow" x:Class="WarzoneConnect.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="WarzoneConnect" Height="750" Width="1280" Activated="OpenWindow" Closing="PrepareStart" Initialized="OpenWindow">
+        Title="WarzoneConnect" Height="750" Width="1280" Closing="PrepareStart" Initialized="OpenWindow">
     <Grid Margin="0,0,0,0">
-        <MediaElement x:Name="Warzone_Intro" LoadedBehavior="Manual" MouseDown="SkipToNext" MediaEnded="Replay" Grid.ColumnSpan="3"/>
-        <Image x:Name="Warzone_Title" HorizontalAlignment="Left" Height="230" Margin="165,276,0,0" VerticalAlignment="Center" Width="468" Source="pack://siteoforigin:,,,/Resources/warzone_connect.png"/>
+        <MediaElement x:Name="WarzoneIntro" LoadedBehavior="Manual" MouseDown="SkipToNext" MediaEnded="Replay" Grid.ColumnSpan="3"/>
+        <Image x:Name="WarzoneTitle" HorizontalAlignment="Left" Height="216" Margin="97,430,0,75" VerticalAlignment="Center" Width="496" Source="pack://siteoforigin:,,,/Resources/warzone_connect.png" Opacity="0"/>
+        <Image x:Name="PressStart" HorizontalAlignment="Left" Height="54" Margin="813,592,0,0" VerticalAlignment="Top" Width="318" Source="pack://siteoforigin:,,,/Resources/press_start.png" Opacity="0"/>
     </Grid>
 </Window>

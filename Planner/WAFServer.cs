@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using WarzoneConnect.Player;
 using WarzoneConnect.Properties;
+// ReSharper disable IdentifierTypo
+// ReSharper disable CommentTypo
 
 namespace WarzoneConnect.Planner
 {

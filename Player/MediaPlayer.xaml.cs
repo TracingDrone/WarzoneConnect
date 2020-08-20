@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Resources;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WarzoneConnect.Properties;
+// ReSharper disable CommentTypo
 
 namespace WarzoneConnect.Player
 {
     /// <summary>
     /// MediaPlayer.xaml 的交互逻辑
     /// </summary>
-    public partial class MediaPlayer : Window
+    public partial class MediaPlayer
     {
         public MediaPlayer(string name)
         {
@@ -33,10 +23,10 @@ namespace WarzoneConnect.Player
                 fileStream.Close();
             }
             InitializeComponent();
-            playerWindow.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4");
+            PlayerWindow.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4");
         }
 
-        internal void Play()
+        private void Play()
         {
             ShowDialog();
         }
@@ -116,7 +106,7 @@ namespace WarzoneConnect.Player
                 Console.BackgroundColor = ConsoleColor.DarkGray;
             }
 
-            ShellCommandDict.fileIdentifier += IdentifyMedia;
+            ShellCommandDict.FileIdentifier += IdentifyMedia;
         }
         [Serializable]
         internal class MediaFile : Host.FileSystem.File
@@ -160,12 +150,12 @@ namespace WarzoneConnect.Player
 
         private void PlayVideo(object sender, EventArgs e)
         {
-            playerWindow.Play();
+            PlayerWindow.Play();
         }
 
         private void StopVideo(object sender, EventArgs e)
         {
-            playerWindow.Close();
+            PlayerWindow.Close();
         }
     }
 }
