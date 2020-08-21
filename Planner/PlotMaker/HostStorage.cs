@@ -122,10 +122,10 @@ namespace WarzoneConnect.Planner.PlotMaker
             SaveLoadCommandInstall(hostList[0]);
 
             //TODO 编辑此处，生成media.resources
-            //var mediaList = new List<string>();
-            //mediaList.AddRange(Mw);
-            //mediaList.AddRange(Second);
-            //MediaBuilder.BuildVideoResources(mediaList);//TODO 编辑此处，生成resource文件
+            var mediaList = new List<string>();
+            mediaList.AddRange(Mw);
+            mediaList.AddRange(Second);
+            MediaBuilder.BuildVideoResources(mediaList);//TODO 编辑此处，生成resource文件
             //TODO Test
             // hostList[0].GetRoot().Add(WaFirecracker.WafcExec);
             // hostList[0].GetRoot().Add(EzHack.EzHackExec);
