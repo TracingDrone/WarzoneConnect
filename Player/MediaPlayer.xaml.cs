@@ -103,7 +103,7 @@ namespace WarzoneConnect.Player
             {
                 if (!(file is MediaFile)) return;
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
 
             ShellCommandDict.FileIdentifier += IdentifyMedia;

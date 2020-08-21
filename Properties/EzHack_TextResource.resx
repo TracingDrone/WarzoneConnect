@@ -99,11 +99,9 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
   <data name="Brute_Help">
-    <value>
-      brute [ip addr] (optional: [option] [argument(s)]) Brute-force the designated host`s remote desktop password. Will create a proxy for intranet penetration.
+    <value>brute [ip addr] (optional: [option] [argument(s)]) Brute-force the designated host`s remote desktop password. Will create a proxy for intranet penetration.
       Possible option(s):
-      -f [Document File] Use this file as the dictionary instead of the built-in one
-    </value>
+      -f [Document File] Use this file as the dictionary instead of the built-in one</value>
   </data>
   <data name="Probe_Help">
     <value>probe Scan the LAN that the remote host is connected to.</value>

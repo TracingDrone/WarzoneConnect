@@ -7,25 +7,28 @@ namespace WarzoneConnect.Planner
 {
     internal static class MediaBuilder
     {
-        internal static void BuildVideoResources(string resourceName) //TODO 需要修改！
+        internal static void BuildVideoResources(IEnumerable<string> fileNames) //TODO 需要修改！
         {
-            if(File.Exists(@".\"+resourceName+".resource"))
-                File.Delete(@".\"+resourceName+".resource");
-            using var resourceWriter = new ResourceWriter(resourceName+".resource");
-            foreach (var fileName in Directory.GetFiles(@".\Resources\"+resourceName))
+            if(File.Exists(@".\Media.resource"))
+                File.Delete(@".\Media.resource");
+            using var resourceWriter = new ResourceWriter("Media.resource");
+            foreach (var fileName in fileNames)
             {
-                resourceWriter.AddResource(fileName,File.ReadAllBytes(fileName));
+                resourceWriter.AddResource(fileName,File.ReadAllBytes(@".\Resources\"+fileName+".mp4"));
             }
         } //resx添加视频时用
         
-        internal static IEnumerable<MediaPlayer.MediaFile> GetVideoResources(string resourceName)
+        internal static IEnumerable<MediaPlayer.MediaFile> GetVideoResources(List<string> fileNames)
         {
             var mediaList = new List<MediaPlayer.MediaFile>();
-            using var resourceReader = new ResourceReader(resourceName+".resource");
+            using var resourceReader = new ResourceReader("Media.resource");
             var en = resourceReader.GetEnumerator();
             while (en.MoveNext())
             {
-                mediaList.Add(new MediaPlayer.MediaFile(en.Key?.ToString()));
+                if (fileNames.Contains((string)en.Key))
+                {
+                    mediaList.Add(new MediaPlayer.MediaFile(en.Key?.ToString()));
+                }
             }
             resourceReader.Dispose();
             return mediaList;

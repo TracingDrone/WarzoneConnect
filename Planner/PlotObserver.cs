@@ -37,11 +37,12 @@ namespace WarzoneConnect.Planner
                     conditionTask.Start();
                     conditionTask.Wait();
                     MailServer.Trigger -= TriggerPlay;
-                    foreach (var nextNode in conditionTask.Result)
-                    {
-                        _currentNode.Add(nextNode); 
-                        new Task(() => nextNode.FreshStart()).Start();
-                    }
+                    if(conditionTask.Result != null)
+                        foreach (var nextNode in conditionTask.Result)
+                        {
+                           _currentNode.Add(nextNode); 
+                            new Task(() => nextNode.FreshStart()).Start();
+                        }
                     _currentNode.Remove(this);
                     conditionTask.Dispose();
                 };
@@ -64,6 +65,7 @@ namespace WarzoneConnect.Planner
 
         internal static void StartObserve()
         {
+            LinkServer.UpperInspection += GameController.Save;
             foreach (var node in _currentNode)
             {
                 new Task(() => node.FreshStart()).Start();

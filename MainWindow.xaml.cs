@@ -1,15 +1,16 @@
 ﻿using Microsoft.VisualBasic.Devices;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Media;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WarzoneConnect.Planner;
 using WarzoneConnect.Properties;
@@ -21,10 +22,11 @@ namespace WarzoneConnect
     /// </summary>
     public partial class MainWindow
     {
-        SoundPlayer sp_p1 = new SoundPlayer();
-        SoundPlayer sp_p2 = new SoundPlayer();
-        SoundPlayer sp_p3 = new SoundPlayer();
-        SoundPlayer sp_p3bg = new SoundPlayer(IntroMedia.Into_the_Furnace);
+        //TODO 等待录音
+        private readonly SoundPlayer _spP1 = new SoundPlayer(IntroMedia.test);
+        private readonly SoundPlayer _spP2 = new SoundPlayer(IntroMedia.test);
+        private readonly SoundPlayer _spP3 = new SoundPlayer(IntroMedia.test);
+        private readonly SoundPlayer _spP3Bg = new SoundPlayer(IntroMedia.Into_the_Furnace);
 
 
         private bool _isIntroClosing;
@@ -90,7 +92,8 @@ namespace WarzoneConnect
             {
                 _isMessageReceived = true;
                 Thread.Sleep(3000);
-                sp_p3bg.Stop();
+                _spP3.Stop();
+                _spP3Bg.Stop();
                 Dispatcher.BeginInvoke((Action)delegate { WarzoneIntro.Stop(); });
                 new Audio().PlaySystemSound(SystemSounds.Beep); 
                 MessageBox.Show("Something`s wrong...\n" +
@@ -107,18 +110,31 @@ namespace WarzoneConnect
 
         private void ShowTitleAndSound()
         {
-            
+            _spP1.Play();
             var pos = 0;
             do
             {
                 Thread.Sleep(50);
                 Dispatcher.BeginInvoke((Action) delegate { pos = WarzoneIntro.Position.Seconds; });
+            } while (pos < 5);
+
+            _spP1.Stop();
+            _spP2.Play();
+            
+            do
+            {
+                Thread.Sleep(50);
+                Dispatcher.BeginInvoke((Action) delegate { pos = WarzoneIntro.Position.Seconds; });
             } while (pos < 10);
-
-
+            
+            _spP2.Stop();
+            Dispatcher.BeginInvoke((Action)delegate { WarzoneIntro.Pause(); });
+            _spP3.PlaySync();//播放完语音再出title
+            Dispatcher.BeginInvoke((Action)delegate { WarzoneIntro.Play(); });
             var i = 0.01;
+            _spP3Bg.PlayLooping();
+            //_spP3Bg.PlayLooping();
 
-            sp_p3bg.PlayLooping();
 
             do
             {
@@ -133,14 +149,14 @@ namespace WarzoneConnect
 
             void Cleanup()
             {
-                sp_p1.Stop();
-                sp_p1.Dispose();
-                sp_p2.Stop();
-                sp_p2.Dispose();
-                sp_p3.Stop();
-                sp_p3.Dispose();
-                sp_p3bg.Stop();
-                sp_p3bg.Dispose();
+                _spP1.Stop();
+                _spP1.Dispose();
+                _spP2.Stop();
+                _spP2.Dispose();
+                _spP3.Stop();
+                _spP3.Dispose();
+                _spP3Bg.Stop();
+                _spP3Bg.Dispose();
             }
 
             while (!_isIntroClosing)

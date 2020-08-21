@@ -15,7 +15,6 @@ namespace WarzoneConnect.Player
         internal bool IsAcquiredMasterKey;
         internal bool IsFirstTime;
         internal double DefenceStrength;
-        internal CounterMeasure Counter;
 
         private WaFirecracker()
         {
@@ -274,7 +273,7 @@ namespace WarzoneConnect.Player
         internal class CounterMeasure // 防御程序，每次进入就new一个
         {
             internal readonly CancellationTokenSource Source = new CancellationTokenSource();
-            private readonly ManualResetEvent _cmLock = new ManualResetEvent(true);
+            internal readonly ManualResetEvent CmLock = new ManualResetEvent(true);
             internal bool IsGetMasterKey { get; private set; }
 
             private double DefenceStatus
@@ -310,24 +309,22 @@ namespace WarzoneConnect.Player
                     StatusVisualizer.RatioVisualize(Ratio);
                     if (Ratio < 10)
                     {
-                        _cmLock.Set();
-                        _cmLock.Dispose();
+                        CmLock.Set();
                         return false;
                     }
 
                     //输了
                     if (Ratio > 80 && !isPlayedQte) //进入QTE
                     {
-                        _cmLock.Reset();
+                        CmLock.Reset();
                         IsGetMasterKey = SituationHandler.AuditionCombat(ref _defenceStatus, ref _incursionStatus);
                         isPlayedQte = true;
-                        _cmLock.Set();
+                        CmLock.Set();
                     }
 
                     if (Ratio > 90)
                     {
-                        _cmLock.Set();
-                        _cmLock.Dispose();
+                        CmLock.Set();
                         return true;
                     }
 
@@ -376,18 +373,18 @@ namespace WarzoneConnect.Player
                     var prevInput = new ConsoleKeyInfo();
                     while (!Source.Token.IsCancellationRequested)
                     {
-                        _cmLock.WaitOne();
+                        CmLock.WaitOne();
                         DefenceStatus =
                             SituationHandler.OneClickDefence(ref prevInput, currentDefenceStrength, DefenceStatus);
                     }
                 }, Source.Token);
-                _cmLock.Set();
+                CmLock.Set();
                 defenceTask.Start();
             }
 
             internal void AttackAnalyzer(double incursionStrength) // 处理攻击的数据
             {
-                _cmLock.WaitOne();
+                CmLock.WaitOne();
                 if (!Source.Token.IsCancellationRequested)
                     IncursionStatus += incursionStrength;
             }

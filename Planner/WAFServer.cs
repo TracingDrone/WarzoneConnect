@@ -101,26 +101,26 @@ namespace WarzoneConnect.Planner
                     return true;
                 }
                 
-                wafc.Counter=new WaFirecracker.CounterMeasure(ref wafc.DefenceStrength, wafc.IsFirstTime); //这个使用主线程
+                var counter=new WaFirecracker.CounterMeasure(ref wafc.DefenceStrength, wafc.IsFirstTime); //这个使用主线程
 
                 // 开一个线程用来加攻击
                 var attackAnalyzerTask = new Task(() =>
                 {
                     // ReSharper disable once AccessToDisposedClosure
-                    while (!wafc.Counter.Source.Token.IsCancellationRequested)
+                    while (!counter.Source.Token.IsCancellationRequested)
                     {
-                        wafc.Counter.AttackAnalyzer(incursionStrength);
+                        counter.AttackAnalyzer(incursionStrength);
                         Thread.Sleep(100);
                     }
-                }, wafc.Counter.Source.Token);
+                }, counter.Source.Token);
                 
                 var getResultTask = new Task<bool>(() =>
                 {
-                    var result =  wafc.Counter.GetResult();
-                    if (wafc.Counter.IsGetMasterKey)
+                    var result =  counter.GetResult();
+                    if (counter.IsGetMasterKey)
                         wafc.IsAcquiredMasterKey = true;
                     // ReSharper disable once AccessToDisposedClosure
-                    wafc.Counter.Source.Cancel();
+                    counter.Source.Cancel();
                     Task.WaitAll(attackAnalyzerTask);
                     return result;
                 });
@@ -139,11 +139,13 @@ namespace WarzoneConnect.Planner
                     BigFirework.YouDied();
                 }
                 Console.CursorVisible = true;
-                wafc.Counter.Source.Dispose();
+                counter.CmLock.Dispose();
+                counter.Source.Dispose();
                 return getResultTask.Result;
             }
-            catch
+            catch (Exception exception)
             {
+                Console.WriteLine(exception.Message);
                 Thread.Sleep(2000);
                 Console.WriteLine(WAF_TextResource.Wafc_Failed);
                 Thread.Sleep(2000);
