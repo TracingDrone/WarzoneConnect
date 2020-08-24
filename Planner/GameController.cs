@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using WarzoneConnect.Properties;
 using System.Resources;
+using System.Threading;
+using System.Threading.Tasks;
 using WarzoneConnect.Planner.PlotMaker;
 using WarzoneConnect.Player;
-using System.Threading.Tasks;
+using WarzoneConnect.Properties;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
 namespace WarzoneConnect.Planner
-{//TODO 还有视频文件！
+{
     internal static class GameController //本class用来记录，读取游戏进程
     {
-
         internal static List<Host> HostList;
-        
+
         internal static List<SaveLoadActions> SaveLoadList = new List<SaveLoadActions>();
 
         internal static void Initialize()
@@ -40,10 +39,13 @@ namespace WarzoneConnect.Planner
                         {
                             // 忽略掉
                         }
+
                         HostList = (List<Host>) resxSet.GetObject("hosts");
                         SaveLoadList = (List<SaveLoadActions>) resxSet.GetObject("slList");
-                        if ((SaveLoadList ?? throw new BrokenSaveException()).Any(sla => !sla.Load(resxSet))) throw new BrokenSaveException();
+                        if ((SaveLoadList ?? throw new BrokenSaveException()).Any(sla => !sla.Load(resxSet)))
+                            throw new BrokenSaveException();
                     }
+
                     if (HostList == null) throw new BrokenSaveException();
                 }
                 catch
@@ -54,12 +56,13 @@ namespace WarzoneConnect.Planner
             }
             else
             {
-
                 var initTask = new Task(() =>
-                { 
+                {
                     HostList = HostStorage.InitializeHost();
                     var rm = GlobalConfig.ResourceManager;
-                    LinkStorage.ReLink(rm); WafServer.FirewallInstall(rm); MailServer.RebuildMails(); 
+                    LinkStorage.ReLink(rm);
+                    WafServer.FirewallInstall(rm);
+                    MailServer.RebuildMails();
                     AutoSploitServer.AddExploit(rm);
                 });
                 //HostList = HostStorage.InitializeHost();
@@ -73,26 +76,24 @@ namespace WarzoneConnect.Planner
 
                 initTask.Start();
 
-                foreach (var s in GameController_TextResource.BootUp.Replace("\r\n","\n").Split('\n'))
+                foreach (var s in GameController_TextResource.BootUp.Replace("\r\n", "\n").Split('\n'))
                 {
-                    if (s.Trim() == string.Empty)
-                    {
-                        Thread.Sleep(1000);
-                    }
-                
+                    if (s.Trim() == string.Empty) Thread.Sleep(1000);
+
                     Console.WriteLine(s);
                     Thread.Sleep(50);
                 }
-
                 initTask.Wait();
                 PlotObserver.InitializePlot();
                 PlotObserver.StartObserve();
                 Console.Clear();
+                Thread.Sleep(2000);
             }
+
             WafServer.FirewallBootUp();
             MediaPlayer.RegisterMediaFile();
             AutoSploit.RegisterExpFile();
-            
+
             new Terminal(HostList?[0].Sh).Open();
         }
 
@@ -105,7 +106,7 @@ namespace WarzoneConnect.Planner
             resx.AddResource("time", DateTime.Now);
             resx.AddResource("slList", SaveLoadList);
             foreach (var sla in SaveLoadList) sla.Save(resx);
-            
+
             Console.WriteLine(Shell_TextResource.Saved);
         }
 
@@ -122,7 +123,7 @@ namespace WarzoneConnect.Planner
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.Write(GameController_TextResource.Yes);
                     Console.ResetColor();
-                    Console.Write('\t'+GameController_TextResource.No);
+                    Console.Write('\t' + GameController_TextResource.No);
                     var isYes = true;
                     ConsoleKey key;
                     do
@@ -137,13 +138,13 @@ namespace WarzoneConnect.Planner
                                 {
                                     isYes = false;
                                     Console.CursorLeft = 0;
-                                    Console.Write(GameController_TextResource.Yes+'\t');
+                                    Console.Write(GameController_TextResource.Yes + '\t');
                                     Console.ForegroundColor = ConsoleColor.Black;
                                     Console.BackgroundColor = ConsoleColor.Gray;
                                     Console.Write(GameController_TextResource.No);
                                     Console.ResetColor();
                                 }
-    
+
                                 break;
                             }
                             case ConsoleKey.LeftArrow:
@@ -156,19 +157,20 @@ namespace WarzoneConnect.Planner
                                     Console.BackgroundColor = ConsoleColor.Gray;
                                     Console.Write(GameController_TextResource.Yes);
                                     Console.ResetColor();
-                                    Console.Write('\t'+GameController_TextResource.No);
+                                    Console.Write('\t' + GameController_TextResource.No);
                                 }
-    
+
                                 break;
                             }
                         }
                     } while (key != ConsoleKey.Enter);
-    
+
                     if (isYes)
                     {
                         HostList = (List<Host>) resxSet.GetObject("hosts");
                         SaveLoadList = (List<SaveLoadActions>) resxSet.GetObject("slList");
-                        if ((SaveLoadList ?? throw new BrokenSaveException()).Any(sla => !sla.Load(resxSet))) throw new BrokenSaveException();
+                        if ((SaveLoadList ?? throw new BrokenSaveException()).Any(sla => !sla.Load(resxSet)))
+                            throw new BrokenSaveException();
                         Console.Clear();
                         Console.WriteLine(GameController_TextResource.Load);
                         new Terminal(HostList?[0].Sh).Open();
@@ -181,7 +183,7 @@ namespace WarzoneConnect.Planner
                 }
             else
                 Console.WriteLine(GameController_TextResource.SaveNotExist);
-    
+
             Console.CursorVisible = true;
         }
 
@@ -190,7 +192,7 @@ namespace WarzoneConnect.Planner
         {
             internal Action<ResXResourceWriter> Save { get; }
             internal Func<ResXResourceSet, bool> Load { get; }
-    
+
             internal SaveLoadActions(Action<ResXResourceWriter> s, Func<ResXResourceSet, bool> l)
             {
                 Save = s;
@@ -203,5 +205,4 @@ namespace WarzoneConnect.Planner
             public override string Message { get; } = GameController_TextResource.BrokenSave;
         }
     }
-    
 }

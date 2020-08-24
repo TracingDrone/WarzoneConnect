@@ -7,34 +7,12 @@ namespace WarzoneConnect.Player
     [Serializable]
     public abstract class Host : DynamicObject
     {
-        
-        internal string User { get; } //用户名
-        internal string Addr { get; } //IP地址
-        internal string Info { get; } //系统信息
-        internal int System { get; }//0为HackTool，1为UBurst，2为Door，3为Clock
-        
         internal FileSystem Fs; //根目录，作为文件系统入口
-        internal Shell Sh { get; set; } //自己的Shell
 
-        internal Dictionary<string,object> Prop=new Dictionary<string, object>(); //Properties
-        public override bool TryGetMember(GetMemberBinder binder, out object result) 
-        {
-            return Prop.TryGetValue(binder.Name, out result);
-        }
-        
-        public override bool TrySetMember(SetMemberBinder binder, object value)
-        {
-            Prop[binder.Name] = value;
-            return true;
-        }
-        
-        internal FileSystem.Dir GetRoot()
-        {
-            return Fs.RootDir;
-        }
-        
+        internal Dictionary<string, object> Prop = new Dictionary<string, object>(); //Properties
 
-        internal Host(string user, string addr, string info,int system)
+
+        internal Host(string user, string addr, string info, int system)
         {
             User = user;
             Addr = addr;
@@ -42,13 +20,35 @@ namespace WarzoneConnect.Player
             System = system;
             var bin = new FileSystem.Dir("bin");
             var doc = new FileSystem.Dir("doc");
-            var root=new FileSystem.Dir("root");
+            var root = new FileSystem.Dir("root");
             root.Add(bin);
             root.Add(doc);
             Fs = new FileSystem(root);
             Sh = new Shell(this);
         }
+
+        internal string User { get; } //用户名
+        internal string Addr { get; } //IP地址
+        internal string Info { get; } //系统信息
+        internal int System { get; } //0为HackTool，1为UBurst，2为Door，3为Clock
+        internal Shell Sh { get; set; } //自己的Shell
         internal List<string> InstalledExec { get; set; } = new List<string>(); //已安装的程序
+
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            return Prop.TryGetValue(binder.Name, out result);
+        }
+
+        public override bool TrySetMember(SetMemberBinder binder, object value)
+        {
+            Prop[binder.Name] = value;
+            return true;
+        }
+
+        internal FileSystem.Dir GetRoot()
+        {
+            return Fs.RootDir;
+        }
 
         internal void InstallExec(FileSystem.Exec exec)
         {
@@ -65,9 +65,15 @@ namespace WarzoneConnect.Player
         internal class FileSystem //文件系统
         {
             internal Dir CurrentDir;
-            
+
+            internal FileSystem(Dir rootDir)
+            {
+                RootDir = rootDir;
+                CurrentDir = rootDir;
+            }
+
             internal Dir RootDir { get; }
-            
+
             [Serializable]
             internal class File : ICloneable
             {
@@ -78,21 +84,22 @@ namespace WarzoneConnect.Player
 
                 internal string Name { get; set; }
 
-                internal virtual string Output()
-                {
-                    return Convert.ToString(GetHashCode(), 2);
-                }
-
                 public virtual object Clone()
                 {
                     return MemberwiseClone();
+                }
+
+                internal virtual string Output()
+                {
+                    return Convert.ToString(GetHashCode(), 2);
                 }
             }
 
             [Serializable]
             internal class Exec : File
             {
-                internal Exec(string name, List<Shell.Command> commands,bool needDll) : base(name) {
+                internal Exec(string name, List<Shell.Command> commands, bool needDll) : base(name)
+                {
                     LinkedCommands = commands;
                     OriginName = Name;
                     NeedDll = needDll;
@@ -105,7 +112,7 @@ namespace WarzoneConnect.Player
 
                 public override object Clone()
                 {
-                    return new Exec(OriginName,LinkedCommands,NeedDll);
+                    return new Exec(OriginName, LinkedCommands, NeedDll);
                 }
             }
 
@@ -116,20 +123,20 @@ namespace WarzoneConnect.Player
                 {
                     Document = document;
                 }
-                
-                public override object Clone()
-                {
-                    return new Doc(Name,Document);
-                }
 
                 internal string Document { get; } //文本
-                
+
+                public override object Clone()
+                {
+                    return new Doc(Name, Document);
+                }
+
                 internal override string Output()
                 {
                     return Document;
                 }
             }
-            
+
             [Serializable]
             internal class Video : File
             {
@@ -139,31 +146,13 @@ namespace WarzoneConnect.Player
                 }
 
                 private string LinkedVideoName { get; } //链接至resx
-                
+
                 //尚未完工
             }
 
             [Serializable]
             internal class Dir : File
             {
-                public override object Clone() //DeepCopy
-                {
-                    var newDir = new Dir(Name);
-                    foreach (var file in FileList)
-                        if (file is Dir tempOldDirChild)
-                        {
-                            var tempNewDirChild = (Dir)tempOldDirChild.Clone();
-                            tempNewDirChild.ParentDir=newDir;
-                            newDir.FileList.Add(tempNewDirChild);
-                        }
-                        else
-                        {
-                            newDir.FileList.Add(file);
-                        }
-                    
-                    return newDir;
-                }
-                
                 internal Dir(string name) : base(name)
                 {
                 }
@@ -171,6 +160,24 @@ namespace WarzoneConnect.Player
                 internal Dir ParentDir { get; private set; }
 
                 internal List<File> FileList { get; private set; } = new List<File>();
+
+                public override object Clone() //DeepCopy
+                {
+                    var newDir = new Dir(Name);
+                    foreach (var file in FileList)
+                        if (file is Dir tempOldDirChild)
+                        {
+                            var tempNewDirChild = (Dir) tempOldDirChild.Clone();
+                            tempNewDirChild.ParentDir = newDir;
+                            newDir.FileList.Add(tempNewDirChild);
+                        }
+                        else
+                        {
+                            newDir.FileList.Add(file);
+                        }
+
+                    return newDir;
+                }
 
                 internal void Add(Dir newDir) //添加目录，在添加文件基础上修改ParentDir
                 {
@@ -187,6 +194,7 @@ namespace WarzoneConnect.Player
                         Add(dir);
                         return;
                     }
+
                     if (FileList.Exists(f => f.Name == newFile.Name))
                         throw new CustomException.NameConflictException(); //存在同名文件
                     FileList.Add(newFile);
@@ -217,7 +225,7 @@ namespace WarzoneConnect.Player
 
                 internal void Delete(string name) //如果没出错的话，应该只会删除1个文件吧，大概······
                 {
-                    if(FileList.RemoveAll(f => f.Name == name) == 0)
+                    if (FileList.RemoveAll(f => f.Name == name) == 0)
                         throw new CustomException.FileNotExistException();
                 }
 
@@ -228,13 +236,6 @@ namespace WarzoneConnect.Player
                         throw new CustomException.NameConflictException(); //存在同名文件
                     FileList[index].Name = newName;
                 }
-                
-            }
-
-            internal FileSystem(Dir rootDir)
-            {
-                RootDir = rootDir;
-                CurrentDir = rootDir;
             }
         }
     }
@@ -242,14 +243,15 @@ namespace WarzoneConnect.Player
     [Serializable]
     internal class HackTool : Host
     {
-        internal HackTool(string user,string addr, string info) : base(user,addr,info,0)
+        internal HackTool(string user, string addr, string info) : base(user, addr, info, 0)
         {
         }
     }
+
     [Serializable]
     internal class Target : Host
     {
-        internal Target(string user, string addr,string info,int system) : base(user, addr,info,system)
+        internal Target(string user, string addr, string info, int system) : base(user, addr, info, system)
         {
         }
     }

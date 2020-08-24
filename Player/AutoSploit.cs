@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WarzoneConnect.Planner;
 using WarzoneConnect.Properties;
+
 // ReSharper disable StringLiteralTypo
 
 // ReSharper disable CommentTypo
@@ -28,62 +29,6 @@ namespace WarzoneConnect.Player
 
             ShellCommandDict.FileIdentifier += IdentifyExp;
         }
-        
-        [Serializable]
-        internal class ExpFile : Host.FileSystem.File
-        {
-            internal ExpFile(string name, string description, DateTime date, int rank, string exp, int system) :
-                base(name)
-            {
-                Description = description;
-                Date = date;
-                Rank = rank;
-                Exp = exp;
-                System = system;
-            }
-
-            internal static string GetRank(int rank)
-            {
-                return rank switch
-                {
-                    0 => "Perfect",
-                    1 => "Great",
-                    2 => "Good",
-                    _ => "Miss"
-                };
-            }
-
-            internal static string GetSystem(int system)
-            {
-                return system switch
-                {
-                    0 => "Door",
-                    1 => "UBurst",
-                    _ => "Unknown"
-                };
-            }
-
-            internal override string Output()
-            {
-                return $"Name:\t{Name}\n" +
-                       $"System:\t{GetSystem(System)}\n" +
-                       $"Desc:\t{Description}\n" +
-                       $"Date:\t{Date.Year}/{Date.Month}/{Date.Day}\n" +
-                       $"Rank:\t{GetRank(Rank)}\n\n" +
-                       $"Exp:\n{Exp}";
-            }
-
-            internal string Description { get; }
-            internal DateTime Date { get; }
-            internal int Rank { get; }
-            internal string Exp { get; }
-            internal int System { get; } //0为Door，1为UBurst
-
-            public override object Clone()
-            {
-                return new ExpFile(Name, Description, Date, Rank, Exp, System);
-            }
-        }
 
         private static void AsfConsole(IReadOnlyCollection<string> argList, Host host)
         {
@@ -107,8 +52,10 @@ namespace WarzoneConnect.Player
                     {
                         throw new CreateDirFailedException("asfconsole");
                     }
+
                     f = host.GetRoot().FileList.Find(d => d.Name == dirName);
                 }
+
                 if (f is Host.FileSystem.Dir expDir)
                 {
                     var exps = expDir.FileList.Where(file => file is ExpFile).Cast<ExpFile>().ToList();
@@ -225,7 +172,63 @@ namespace WarzoneConnect.Player
                 Console.WriteLine(e.Message);
             }
         }
-        
+
+        [Serializable]
+        internal class ExpFile : Host.FileSystem.File
+        {
+            internal ExpFile(string name, string description, DateTime date, int rank, string exp, int system) :
+                base(name)
+            {
+                Description = description;
+                Date = date;
+                Rank = rank;
+                Exp = exp;
+                System = system;
+            }
+
+            internal string Description { get; }
+            internal DateTime Date { get; }
+            internal int Rank { get; }
+            internal string Exp { get; }
+            internal int System { get; } //0为Door，1为UBurst
+
+            internal static string GetRank(int rank)
+            {
+                return rank switch
+                {
+                    0 => "Perfect",
+                    1 => "Great",
+                    2 => "Good",
+                    _ => "Miss"
+                };
+            }
+
+            internal static string GetSystem(int system)
+            {
+                return system switch
+                {
+                    0 => "Door",
+                    1 => "UBurst",
+                    _ => "Unknown"
+                };
+            }
+
+            internal override string Output()
+            {
+                return $"Name:\t{Name}\n" +
+                       $"System:\t{GetSystem(System)}\n" +
+                       $"Desc:\t{Description}\n" +
+                       $"Date:\t{Date.Year}/{Date.Month}/{Date.Day}\n" +
+                       $"Rank:\t{GetRank(Rank)}\n\n" +
+                       $"Exp:\n{Exp}";
+            }
+
+            public override object Clone()
+            {
+                return new ExpFile(Name, Description, Date, Rank, Exp, System);
+            }
+        }
+
         private class CreateDirFailedException : Exception
         {
             //

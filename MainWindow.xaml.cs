@@ -1,31 +1,27 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Media;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Microsoft.VisualBasic.Devices;
 using WarzoneConnect.Planner;
 using WarzoneConnect.Properties;
 
 namespace WarzoneConnect
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    ///     MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow
     {
-        //TODO 等待录音
-        private readonly SoundPlayer _spP1 = new SoundPlayer(IntroMedia.test);
-        private readonly SoundPlayer _spP2 = new SoundPlayer(IntroMedia.test);
-        private readonly SoundPlayer _spP3 = new SoundPlayer(IntroMedia.test);
+        private readonly SoundPlayer _spP1 = new SoundPlayer(IntroMedia.activision);
+        private readonly SoundPlayer _spP2 = new SoundPlayer(IntroMedia.iw);
+        private readonly SoundPlayer _spP3 = new SoundPlayer(IntroMedia.wz);
         private readonly SoundPlayer _spP3Bg = new SoundPlayer(IntroMedia.Into_the_Furnace);
 
 
@@ -63,7 +59,9 @@ namespace WarzoneConnect
 
         private void OpenWindow(object sender, EventArgs e)
         {
+            Thread.Sleep(2000);
             WarzoneIntro.Play();
+            _spP1.Play();
             new Task(ShowTitleAndSound).Start();
         }
 
@@ -85,20 +83,24 @@ namespace WarzoneConnect
         private void SkipToNext(object sender, MouseButtonEventArgs e)
         {
             if (WarzoneIntro.Position < new TimeSpan(0, 0, 5))
+            {
                 WarzoneIntro.Position = new TimeSpan(0, 0, 5);
+            }
             else if (WarzoneIntro.Position < new TimeSpan(0, 0, 10))
+            {
                 WarzoneIntro.Position = new TimeSpan(0, 0, 10);
+            }
             else
             {
                 _isMessageReceived = true;
                 Thread.Sleep(3000);
                 _spP3.Stop();
                 _spP3Bg.Stop();
-                Dispatcher.BeginInvoke((Action)delegate { WarzoneIntro.Stop(); });
-                new Audio().PlaySystemSound(SystemSounds.Beep); 
+                Dispatcher.BeginInvoke((Action) delegate { WarzoneIntro.Stop(); });
+                new Audio().PlaySystemSound(SystemSounds.Beep);
                 MessageBox.Show("Something`s wrong...\n" +
                                 "It seems that the whole thing`s out of control...\n" +
-                                "Initializing fail-save system.","Message Intercepted");
+                                "Initializing fail-save system.", "Message Intercepted");
                 WarzoneConnectWindow.Close();
             }
         }
@@ -110,7 +112,6 @@ namespace WarzoneConnect
 
         private void ShowTitleAndSound()
         {
-            _spP1.Play();
             var pos = 0;
             do
             {
@@ -120,17 +121,17 @@ namespace WarzoneConnect
 
             _spP1.Stop();
             _spP2.Play();
-            
+
             do
             {
                 Thread.Sleep(50);
                 Dispatcher.BeginInvoke((Action) delegate { pos = WarzoneIntro.Position.Seconds; });
             } while (pos < 10);
-            
+
             _spP2.Stop();
-            Dispatcher.BeginInvoke((Action)delegate { WarzoneIntro.Pause(); });
-            _spP3.PlaySync();//播放完语音再出title
-            Dispatcher.BeginInvoke((Action)delegate { WarzoneIntro.Play(); });
+            Dispatcher.BeginInvoke((Action) delegate { WarzoneIntro.Pause(); });
+            _spP3.PlaySync(); //播放完语音再出title
+            Dispatcher.BeginInvoke((Action) delegate { WarzoneIntro.Play(); });
             var i = 0.01;
             _spP3Bg.PlayLooping();
             //_spP3Bg.PlayLooping();
@@ -170,6 +171,7 @@ namespace WarzoneConnect
                         Cleanup();
                         return;
                     }
+
                     Thread.Sleep(10);
                 }
 
@@ -182,9 +184,11 @@ namespace WarzoneConnect
                         Cleanup();
                         return;
                     }
+
                     Thread.Sleep(10);
                 }
             }
+
             Cleanup();
         }
     }

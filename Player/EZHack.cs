@@ -64,7 +64,7 @@ namespace WarzoneConnect.Player
                     Console.WriteLine(EzHack_TextResource.Brute_ConnectionFailed);
                     return; //ip wrong
                 }
-                
+
                 foreach (var pw in dict)
                 {
                     Thread.Sleep(50);

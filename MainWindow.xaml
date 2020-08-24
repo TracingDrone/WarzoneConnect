@@ -6,8 +6,12 @@
         mc:Ignorable="d"
         Title="WarzoneConnect" Height="750" Width="1280" Closing="PrepareStart" Initialized="OpenWindow">
     <Grid Margin="0,0,0,0">
-        <MediaElement x:Name="WarzoneIntro" LoadedBehavior="Manual" MouseDown="SkipToNext" MediaEnded="Replay" Grid.ColumnSpan="3"/>
-        <Image x:Name="WarzoneTitle" HorizontalAlignment="Left" Height="216" Margin="97,430,0,75" VerticalAlignment="Center" Width="496" Source="pack://siteoforigin:,,,/Resources/warzone_connect.png" Opacity="0"/>
-        <Image x:Name="PressStart" HorizontalAlignment="Left" Height="54" Margin="813,592,0,0" VerticalAlignment="Top" Width="318" Source="pack://siteoforigin:,,,/Resources/press_start.png" Opacity="0"/>
+        <MediaElement x:Name="WarzoneIntro" LoadedBehavior="Manual" MouseDown="SkipToNext" MediaEnded="Replay"
+                      Grid.ColumnSpan="3" />
+        <Image x:Name="WarzoneTitle" HorizontalAlignment="Left" Height="216" Margin="97,430,0,75"
+               VerticalAlignment="Center" Width="496" Source="pack://siteoforigin:,,,/Resources/warzone_connect.png"
+               Opacity="0" />
+        <Image x:Name="PressStart" HorizontalAlignment="Left" Height="54" Margin="813,592,0,0" VerticalAlignment="Top"
+               Width="318" Source="pack://siteoforigin:,,,/Resources/press_start.png" Opacity="0" />
     </Grid>
 </Window>

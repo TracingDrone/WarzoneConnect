@@ -167,7 +167,8 @@ namespace WarzoneConnect.Player
             {
             }
 
-            public UnknownCommandException(string commandName) : base($"{commandName} - {CustomException_TextResource.UnknownCommand}")
+            public UnknownCommandException(string commandName) : base(
+                $"{commandName} - {CustomException_TextResource.UnknownCommand}")
             {
             }
 
@@ -195,9 +196,9 @@ namespace WarzoneConnect.Player
             {
             }
 
-            public DllRequirementException(string commandName) : base($"{commandName} - {CustomException_TextResource.DLLRequirement}")
+            public DllRequirementException(string commandName) : base(
+                $"{commandName} - {CustomException_TextResource.DLLRequirement}")
             {
-                
             }
 
             public DllRequirementException(string message, Exception inner) : base(message, inner)
@@ -210,6 +211,5 @@ namespace WarzoneConnect.Player
             {
             }
         }
-        
     }
 }

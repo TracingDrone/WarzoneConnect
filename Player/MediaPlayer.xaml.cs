@@ -3,72 +3,70 @@ using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 using System.Runtime.Serialization;
+using System.Threading;
+using System.Windows.Threading;
 using WarzoneConnect.Properties;
+
 // ReSharper disable CommentTypo
 
 namespace WarzoneConnect.Player
 {
     /// <summary>
-    /// MediaPlayer.xaml 的交互逻辑
+    ///     MediaPlayer.xaml 的交互逻辑
     /// </summary>
     public partial class MediaPlayer
     {
-        public MediaPlayer(string name)
-        {
-            using (var resourceSet = new ResourceSet(@".\Media.resource"))
-            {
-                var temp = (byte[])resourceSet.GetObject(name);
-                var fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4", FileMode.OpenOrCreate);
-                fileStream.Write(temp ?? throw new InvalidOperationException(), 0, temp.Length);
-                fileStream.Close();
-            }
-            InitializeComponent();
-            PlayerWindow.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4");
-        }
-
-        private void Play()
-        {
-            ShowDialog();
-        }
-
         private static readonly Shell.Command PlayCommand = new Shell.Command(
             "play",
             (argList, host) =>
             {
-                const string commandName = "play";
-                var backupDir = host.Fs.CurrentDir;
-                try
+            const string commandName = "play";
+            var backupDir = host.Fs.CurrentDir;
+            try
+            {
+                if (argList.Count != 1) //只能获取一个参数
+                    throw new CustomException.UnknownArgumentException(commandName);
+                var fileName = argList[0];
+                if (fileName.Contains("/"))
                 {
-                    if (argList.Count != 1) //只能获取一个参数
-                        throw new CustomException.UnknownArgumentException(commandName);
-                    var fileName = argList[0];
-                    if (fileName.Contains("/"))
-                    {
-                        var path = fileName.Substring(0, fileName.LastIndexOf('/')); //目录位置
-                        fileName = fileName.Remove(0, fileName.LastIndexOf('/') + 1); //新目录名
-                        argList[0] = path;
-                        if (path != string.Empty)
-                            try
-                            {
-                                ShellCommandDict.ChangeDirCommand.Execute(argList, host);
-                            }
-                            catch (CustomException.FileNotExistException)
-                            {
-                                throw new CustomException.FileNotExistException(commandName);
-                            }
-                    }
-
-                    if (fileName == string.Empty)
-                        throw new CustomException.FileNotExistException(commandName); //文件不存在
-                    var video = host.Fs.CurrentDir.Transfer(fileName);
-                    switch (video)
-                    {
-                        case null:
+                    var path = fileName.Substring(0, fileName.LastIndexOf('/')); //目录位置
+                    fileName = fileName.Remove(0, fileName.LastIndexOf('/') + 1); //新目录名
+                    argList[0] = path;
+                    if (path != string.Empty)
+                        try
+                        {
+                            ShellCommandDict.ChangeDirCommand.Execute(argList, host);
+                        }
+                        catch (CustomException.FileNotExistException)
+                        {
                             throw new CustomException.FileNotExistException(commandName);
-                        case MediaFile video1:
-                            try
-                            {
-                                new MediaPlayer(video1.FileName).Play();
+                        }
+                }
+
+                if (fileName == string.Empty)
+                    throw new CustomException.FileNotExistException(commandName); //文件不存在
+                var video = host.Fs.CurrentDir.Transfer(fileName);
+                switch (video)
+                {
+                    case null:
+                        throw new CustomException.FileNotExistException(commandName);
+                    case MediaFile video1:
+                        try
+                        {
+                                Console.WriteLine(MediaPlayer_TextResource.VideoLoading);
+                                 Thread videoThread = new Thread(new ThreadStart(() =>
+                                {
+                                    new MediaPlayer(video1.FileName).Play();
+                                    Dispatcher.Run();
+                                }));
+                                videoThread.SetApartmentState(ApartmentState.STA);
+                                videoThread.Start();
+                                
+                                //App.Current.Dispatcher.Invoke((Action)(() =>
+                                //{
+                                //    new MediaPlayer(video1.FileName).Play();
+                                //}));
+                                //Dispatcher.Run();
                             }
                             catch
                             {
@@ -97,6 +95,26 @@ namespace WarzoneConnect.Player
                 PlayCommand
             }), false);
 
+        public MediaPlayer(string name)
+        {
+            using (var resourceSet = new ResourceSet(@".\Media.resource"))
+            {
+                var temp = (byte[]) resourceSet.GetObject(name);
+                var fileStream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4",
+                    FileMode.OpenOrCreate);
+                fileStream.Write(temp ?? throw new InvalidOperationException(), 0, temp.Length);
+                fileStream.Close();
+            }
+
+            InitializeComponent();
+            PlayerWindow.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory + $@"\{name}.mp4");
+        }
+
+        private void Play()
+        {
+            ShowDialog();
+        }
+
         internal static void RegisterMediaFile()
         {
             static void IdentifyMedia(Host.FileSystem.File file)
@@ -108,6 +126,17 @@ namespace WarzoneConnect.Player
 
             ShellCommandDict.FileIdentifier += IdentifyMedia;
         }
+
+        private void PlayVideo(object sender, EventArgs e)
+        {
+            PlayerWindow.Play();
+        }
+
+        private void StopVideo(object sender, EventArgs e)
+        {
+            PlayerWindow.Close();
+        }
+
         [Serializable]
         internal class MediaFile : Host.FileSystem.File
         {
@@ -146,16 +175,6 @@ namespace WarzoneConnect.Player
                 StreamingContext context) : base(info, context)
             {
             }
-        }
-
-        private void PlayVideo(object sender, EventArgs e)
-        {
-            PlayerWindow.Play();
-        }
-
-        private void StopVideo(object sender, EventArgs e)
-        {
-            PlayerWindow.Close();
         }
     }
 }

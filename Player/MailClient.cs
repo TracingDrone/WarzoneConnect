@@ -30,7 +30,7 @@ namespace WarzoneConnect.Player
         {
             Console.CursorVisible = false;
             Console.Clear();
-            WriteAnimation.PrintWithBoth("Loading",5,PlotConfig.Mail_ASCII,ConsoleColor.Red);
+            WriteAnimation.PrintWithBoth("Loading", 5, PlotConfig.Mail_ASCII, ConsoleColor.Red);
             Thread.Sleep(2000);
             Console.Clear();
             var currentTPos = 0; //目前光标相对第1封邮件的位置，默认置于第1封邮件处
@@ -39,25 +39,17 @@ namespace WarzoneConnect.Player
                 void ChangeFocus()
                 {
                     if (currentTPos == mb.EMails.Count + 1)
-                    {
                         Console.Write(Mail_TextResource.Exit);
-                    }
                     else if (currentTPos == mb.EMails.Count)
-                    {
                         Console.Write(Mail_TextResource.WriteMail);
-                    }
                     else
-                    {
                         ShowMail(mb.EMails[currentTPos]);
-                    }
-
-                    
                 }
 
                 static void ShowMail(MailBox.EMail email)
                 {
                     Console.Write(
-                        $@"{email.Title.PadRight(_longestTitle+email.Title.Length-UsefulTools.GetLength(email.Title) + 2)}	{email.From.PadRight(_longestFrom + 2)}	{email.Time}	");
+                        $@"{email.Title.PadRight(_longestTitle + email.Title.Length - UsefulTools.GetLength(email.Title) + 2)}	{email.From.PadRight(_longestFrom + 2)}	{email.Time}	");
                     if (email.IsRead)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -71,15 +63,18 @@ namespace WarzoneConnect.Player
                         Console.ResetColor();
                     }
                 }
-                
+
                 Console.ResetColor();
                 Console.WriteLine(PlotConfig.Mail_ASCII);
                 _longestTitle = mb.GetLongestTitle();
                 _longestFrom = mb.GetLongestFrom();
-                Console.WriteLine('\n'+Mail_TextResource.WelcomeBack, mb.User, mb.Unread > 0 ? string.Format(Mail_TextResource.HaveUnread,mb.Unread) : null);
+                Console.WriteLine('\n' + Mail_TextResource.WelcomeBack, mb.User,
+                    mb.Unread > 0 ? string.Format(Mail_TextResource.HaveUnread, mb.Unread) : null);
                 if (mb.EMails.Count > 0)
-                    Console.WriteLine(Mail_TextResource.HeaderTitle.PadRight(_longestTitle+Mail_TextResource.HeaderTitle.Length-UsefulTools.GetLength(Mail_TextResource.HeaderTitle) + 2) + '\t' + 
-                                      Mail_TextResource.HeaderFrom.PadRight(_longestFrom + 2)+ '\t' + 
+                    Console.WriteLine(Mail_TextResource.HeaderTitle.PadRight(_longestTitle +
+                                          Mail_TextResource.HeaderTitle.Length -
+                                          UsefulTools.GetLength(Mail_TextResource.HeaderTitle) + 2) + '\t' +
+                                      Mail_TextResource.HeaderFrom.PadRight(_longestFrom + 2) + '\t' +
                                       Mail_TextResource.HeaderTime.PadRight(17));
                 else
                     Console.WriteLine(Mail_TextResource.EmptyInbox);
@@ -87,7 +82,8 @@ namespace WarzoneConnect.Player
                 foreach (var eMail in mb.EMails)
                     ShowMail(eMail);
 
-                Console.WriteLine(Mail_TextResource.WriteMail+'\n'+Mail_TextResource.Exit+'\n'+Mail_TextResource.ClientHelp);
+                Console.WriteLine(Mail_TextResource.WriteMail + '\n' + Mail_TextResource.Exit + '\n' +
+                                  Mail_TextResource.ClientHelp);
                 Console.SetCursorPosition(0, count0TPos + currentTPos);
                 Console.BackgroundColor = ConsoleColor.Gray;
                 Console.ForegroundColor = ConsoleColor.Black;
@@ -168,7 +164,7 @@ namespace WarzoneConnect.Player
 
                                                     break;
                                                 case 2:
-                                                    Console.Write(Mail_TextResource.Title+title);
+                                                    Console.Write(Mail_TextResource.Title + title);
                                                     break;
                                                 default:
                                                     if (currentTPosWm == text.Count + 5)
@@ -197,10 +193,10 @@ namespace WarzoneConnect.Player
                                         }
 
                                         Console.SetCursorPosition(0, 0);
-                                        Console.WriteLine(Mail_TextResource.From+mb.User);
+                                        Console.WriteLine(Mail_TextResource.From + mb.User);
                                         Console.Write(string.Empty.PadRight(Console.WindowWidth - 1, ' '));
                                         Console.SetCursorPosition(0, 1);
-                                        Console.Write(Mail_TextResource.To+to);
+                                        Console.Write(Mail_TextResource.To + to);
                                         if (isToCorrect)
                                         {
                                             Console.WriteLine();
@@ -436,10 +432,10 @@ namespace WarzoneConnect.Player
                                 static bool ReadMail(MailBox.EMail eMail)
                                 {
                                     Console.WriteLine(
-                                        Mail_TextResource.From+eMail.From+'\n'+
-                                        Mail_TextResource.To+eMail.To+'\n'+
-                                        Mail_TextResource.Time+eMail.Time+'\n'+
-                                        Mail_TextResource.Title+eMail.Title);
+                                        Mail_TextResource.From + eMail.From + '\n' +
+                                        Mail_TextResource.To + eMail.To + '\n' +
+                                        Mail_TextResource.Time + eMail.Time + '\n' +
+                                        Mail_TextResource.Title + eMail.Title);
                                     Console.Write(string.Empty.PadRight(Console.WindowWidth, '='));
                                     var rawText = eMail.Text.Split('\n');
                                     foreach (var row in rawText)

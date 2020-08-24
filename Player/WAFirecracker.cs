@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WarzoneConnect.Planner;
 using WarzoneConnect.Properties;
+
 // ReSharper disable CommentTypo
 
 namespace WarzoneConnect.Player
@@ -12,15 +13,232 @@ namespace WarzoneConnect.Player
     [Serializable]
     public class WaFirecracker
     {
+        private static readonly Shell.Command InstallWafcCommand = new Shell.Command(
+            "inswafc",
+            (argList, host) =>
+            {
+                const string commandName = "inswafc";
+                if (argList.Count != 0)
+                    throw new CustomException.UnknownArgumentException(commandName);
+                try
+                {
+                    WaFirecracker test = ((dynamic) host).wafc;
+                    if (test.IsAcquiredMasterKey)
+                        Console.WriteLine(WAF_TextResource.Wafc_ExpAcquired, commandName);
+                    else
+                        Console.WriteLine(WAF_TextResource.Wafc_DefenceLevel, commandName,
+                            (test.DefenceStrength - 1) / 0.04);
+                }
+                catch
+                {
+                    ((dynamic) host).wafc = new WaFirecracker();
+                    Console.WriteLine(WAF_TextResource.Wafc_Installed, commandName);
+                }
+            },
+            WAF_TextResource.Inswafc_Help);
+
+        internal static readonly Host.FileSystem.Exec WafcExec = new Host.FileSystem.Exec("WAFirecracker",
+            new List<Shell.Command>(new[]
+            {
+                InstallWafcCommand
+            }), true);
+
+        internal double DefenceStrength;
         internal bool IsAcquiredMasterKey;
         internal bool IsFirstTime;
-        internal double DefenceStrength;
 
         private WaFirecracker()
         {
             DefenceStrength = 1.04;
             IsFirstTime = true;
             IsAcquiredMasterKey = false;
+        }
+
+        private static void IntroTutorial()
+        {
+            // 1. 先走几个进度条
+            Console.ResetColor();
+            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Main_Sys, 5);
+            Thread.Sleep(500);
+            Console.WriteLine();
+            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Package_Sender_Sys, 5);
+            Thread.Sleep(500);
+            Console.WriteLine();
+            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Flow_Analyser_Sys, 5);
+            Thread.Sleep(500);
+            Console.WriteLine();
+            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Pseudo_Gui_Sys, 5);
+            Thread.Sleep(500);
+            Console.WriteLine();
+
+            // 2.用帮助文档形式来介绍系统吧！
+            Console.Clear();
+
+            static void ShinyDialog(string title, string text) //text不能超过3行，74字符长度，最后一行不超过60
+            {
+                var textSplit = text.Replace("\r\n", "\n").Split('\n');
+                var startingPointL = Console.WindowWidth / 2 - 40;
+                var startingPointT = Console.WindowHeight - 10;
+
+                Console.ResetColor();
+
+                Console.SetCursorPosition(startingPointL, startingPointT);
+                Console.WriteLine(string.Empty.PadRight(30, '#'));
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine('#' + string.Empty.PadRight(28) + '#');
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine(@"#  " + title.PadRight(26 - UsefulTools.GetLength(title) + title.Length) +
+                                  string.Empty.PadLeft(51, '#'));
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine('#' + string.Empty.PadRight(78) + '#');
+
+                Console.CursorLeft = startingPointL;
+                var startTPos = Console.CursorTop;
+                var startLPos = Console.CursorLeft + 3;
+                Console.WriteLine('#' + string.Empty.PadRight(78) + '#');
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine('#' + string.Empty.PadRight(78) + '#');
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine(@"#  " + WAF_TextResource.Press_Enter.PadLeft(74 -
+                                      UsefulTools.GetLength(WAF_TextResource.Press_Enter) +
+                                      WAF_TextResource.Press_Enter.Length) +
+                                  @"  #");
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine('#' + string.Empty.PadRight(78) + '#');
+
+                Console.CursorLeft = startingPointL;
+                Console.WriteLine(string.Empty.PadRight(80, '#'));
+                foreach (var str in textSplit)
+                {
+                    Console.SetCursorPosition(startLPos, startTPos);
+                    foreach (var ch in str.Trim())
+                    {
+                        Console.Write(ch);
+                        Thread.Sleep(20);
+                    }
+
+                    startTPos++;
+                    while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+                    {
+                    }
+
+                    SendKeys.Flush();
+                }
+            }
+
+            static void ShinyOption(string text, string key, int lPos, int tPos,
+                ConsoleColor color) //text不能超过2行，14字符长度，key为1行，10字符长度
+            {
+                Console.ForegroundColor = color;
+                var textSplit = text.Replace("\r\n", "\n").Split('\n');
+
+                Console.SetCursorPosition(lPos, tPos);
+                Console.WriteLine(string.Empty.PadRight(20, '#'));
+
+                Console.CursorLeft = lPos;
+                Console.WriteLine('#' + string.Empty.PadRight(18) + '#');
+
+                Console.CursorLeft = lPos;
+                var startTPos = Console.CursorTop;
+                var startLPos = Console.CursorLeft + 3;
+                Console.WriteLine('#' + string.Empty.PadRight(18) + '#');
+
+                Console.CursorLeft = lPos;
+                Console.WriteLine('#' + string.Empty.PadRight(18) + '#');
+
+                Console.CursorLeft = lPos;
+                Console.WriteLine('#' + string.Empty.PadRight(18) + '#');
+
+                Console.CursorLeft = lPos;
+                Console.Write('#');
+                Console.ResetColor();
+                Console.Write(
+                    (string.Empty.PadLeft(9 - UsefulTools.GetLength(key) / 2) + key).PadRight(
+                        18 - UsefulTools.GetLength(key) + key.Length));
+                Console.ForegroundColor = color;
+                Console.WriteLine('#');
+
+                Console.CursorLeft = lPos;
+                Console.WriteLine('#' + string.Empty.PadRight(18) + '#');
+
+                Console.CursorLeft = lPos;
+                Console.WriteLine(string.Empty.PadRight(20, '#'));
+
+                foreach (var str in textSplit)
+                {
+                    Console.SetCursorPosition(startLPos, startTPos);
+                    Console.Write(str.Trim());
+                    startTPos++;
+                }
+            }
+
+            Console.Clear();
+            while (true)
+            {
+                Console.Clear();
+                ShinyDialog(WAF_TextResource.Wafc_HelpTitle, WAF_TextResource.Wafc_HelpText);
+                ShinyOption(WAF_TextResource.Wafc_About, ConsoleKey.A.ToString(), 10, 8, ConsoleColor.Magenta);
+                ShinyOption(WAF_TextResource.Wafc_Manual, ConsoleKey.W.ToString(), 50, 5, ConsoleColor.DarkGreen);
+                ShinyOption(WAF_TextResource.Wafc_Exit, ConsoleKey.D.ToString(), 90, 8, ConsoleColor.DarkYellow);
+
+                ConsoleKey option1;
+                do
+                {
+                    option1 = Console.ReadKey(true).Key;
+                } while (option1 != ConsoleKey.A && option1 != ConsoleKey.W && option1 != ConsoleKey.D);
+
+                // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+                switch (option1)
+                {
+                    case ConsoleKey.A:
+                    {
+                        Console.Clear();
+                        ShinyDialog(WAF_TextResource.Wafc_HelpTitle, WAF_TextResource.Wafc_About_Text);
+                        break;
+                    }
+                    case ConsoleKey.W:
+                    {
+                        Console.Clear();
+                        ShinyDialog(WAF_TextResource.Wafc_HelpTitle, WAF_TextResource.Wafc_Manual_Text);
+                        break;
+                    }
+                    case ConsoleKey.D:
+                    {
+                        Console.Clear();
+                        ShinyDialog(WAF_TextResource.Wafc_HelpTitle, WAF_TextResource.Wafc_Exit_Text);
+                        ShinyOption(WAF_TextResource.Wafc_Exit_Yes, ConsoleKey.Y.ToString(), 20, 8,
+                            ConsoleColor.Magenta);
+                        ShinyOption(WAF_TextResource.Wafc_Exit_No, ConsoleKey.N.ToString(), 80, 8,
+                            ConsoleColor.DarkGreen);
+                        ConsoleKey option2;
+                        do
+                        {
+                            option2 = Console.ReadKey(true).Key;
+                        } while (option2 != ConsoleKey.Y && option2 != ConsoleKey.N);
+
+                        // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+                        switch (option2)
+                        {
+                            case ConsoleKey.Y:
+                            {
+                                return;
+                            }
+                            case ConsoleKey.N:
+                            {
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
         }
 
         private static class StatusVisualizer
@@ -56,7 +274,7 @@ namespace WarzoneConnect.Player
                 var ratioInCycle = ratio;
                 Console.SetCursorPosition(Console.WindowWidth / 2 - 39,
                     Console.WindowHeight + Console.WindowTop - 2);
-                Console.Write(String.Empty.PadRight(Console.WindowWidth - 1, ' '));
+                Console.Write(string.Empty.PadRight(Console.WindowWidth - 1, ' '));
                 Console.SetCursorPosition(Console.WindowWidth / 2 - 39,
                     Console.WindowHeight + Console.WindowTop - 1);
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -110,9 +328,10 @@ namespace WarzoneConnect.Player
                     while (Console.ReadKey(true).Key != ConsoleKey.Spacebar)
                     {
                     }
+
                     isFinish = true;
                 }
-                
+
                 SendKeys.SendWait("Enter");
 
 
@@ -138,8 +357,9 @@ namespace WarzoneConnect.Player
                 while (Console.ReadKey(true).Key != ConsoleKey.Spacebar)
                 {
                 }
+
                 SendKeys.Flush();
-                
+
                 Console.SetCursorPosition(Console.WindowWidth / 2 - 20,
                     Console.WindowHeight + Console.WindowTop - 1);
                 Console.Write(string.Empty.PadLeft(40));
@@ -159,14 +379,14 @@ namespace WarzoneConnect.Player
 
                 var stopSlideTask = new Task(StopSlide);
                 stopSlideTask.Start();
-                
+
                 while (true)
                 {
                     for (var i = 0; i < 40; i++)
                     {
                         static ConsoleColor SelectColor(int i)
                         {
-                           return i switch
+                            return i switch
                             {
                                 0 => ConsoleColor.DarkCyan,
                                 1 => ConsoleColor.Yellow,
@@ -181,7 +401,7 @@ namespace WarzoneConnect.Player
                         Console.ResetColor();
                         Thread.Sleep(50);
                         if (!isFinish) continue;
-                        
+
                         Console.SetCursorPosition(0,
                             Console.WindowHeight + Console.WindowTop - 2);
                         Console.Write(string.Empty.PadRight(Console.WindowWidth - 1, ' '));
@@ -216,7 +436,8 @@ namespace WarzoneConnect.Player
                         Console.CursorLeft = tempLPos;
                         return result;
                     }
-                    for(var i = 0;i<40;i++)
+
+                    for (var i = 0; i < 40; i++)
                         Console.Write(@" ");
                 }
             }
@@ -256,6 +477,7 @@ namespace WarzoneConnect.Player
                             StatusVisualizer.RatioVisualize(RatioUpdate(defenceStatus, incursionStatus));
                             Thread.Sleep(50);
                         }
+
                         break; //good
                     case 2:
                         isGetMasterKey = true;
@@ -272,8 +494,62 @@ namespace WarzoneConnect.Player
         [Serializable]
         internal class CounterMeasure // 防御程序，每次进入就new一个
         {
-            internal readonly CancellationTokenSource Source = new CancellationTokenSource();
             internal readonly ManualResetEvent CmLock = new ManualResetEvent(true);
+            internal readonly CancellationTokenSource Source = new CancellationTokenSource();
+            private double _defenceStatus = 100; //防御的代码量，调用OneClickDefence来提升
+
+            private double _incursionStatus = 100; //入侵的代码量，从WAFServer中获得
+
+
+            internal CounterMeasure(ref double defenceStrength, bool isFirstTime)
+            {
+                Console.SetWindowSize(120, 30);
+                // 4. 判断是否进入教程
+                if (isFirstTime)
+                {
+                    Thread.Sleep(2000);
+                    IntroTutorial();
+                }
+
+                // 5. 闪2次Status，开始
+                for (var i = 0; i < 2; i++)
+                {
+                    Console.SetCursorPosition(Console.WindowWidth / 2 - 39,
+                        Console.WindowHeight + Console.WindowTop - 1);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write(@"Defend:50%[");
+                    Console.ResetColor();
+                    Console.Write(string.Empty.PadRight(25, '#'));
+                    Console.Write(string.Empty.PadRight(25, ' '));
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write(@"]50%:Attack");
+                    Console.ResetColor();
+
+                    Thread.Sleep(400);
+
+                    Console.SetCursorPosition(Console.WindowWidth / 2 - 39,
+                        Console.WindowHeight + Console.WindowTop - 1);
+                    Console.Write(string.Empty.PadLeft(Console.WindowWidth, ' '));
+
+                    Thread.Sleep(400);
+                }
+
+
+                var currentDefenceStrength = defenceStrength;
+                var defenceTask = new Task(() =>
+                {
+                    var prevInput = new ConsoleKeyInfo();
+                    while (!Source.Token.IsCancellationRequested)
+                    {
+                        CmLock.WaitOne();
+                        DefenceStatus =
+                            SituationHandler.OneClickDefence(ref prevInput, currentDefenceStrength, DefenceStatus);
+                    }
+                }, Source.Token);
+                CmLock.Set();
+                defenceTask.Start();
+            }
+
             internal bool IsGetMasterKey { get; private set; }
 
             private double DefenceStatus
@@ -298,12 +574,9 @@ namespace WarzoneConnect.Player
 
             private double Ratio { get; set; } = 0.5;
 
-            private double _incursionStatus = 100; //入侵的代码量，从WAFServer中获得
-            private double _defenceStatus = 100; //防御的代码量，调用OneClickDefence来提升
-
             internal bool GetResult()
             {
-                bool isPlayedQte = false;
+                var isPlayedQte = false;
                 while (true)
                 {
                     StatusVisualizer.RatioVisualize(Ratio);
@@ -332,56 +605,6 @@ namespace WarzoneConnect.Player
                 }
             }
 
-
-            internal CounterMeasure(ref double defenceStrength, bool isFirstTime)
-            {
-                Console.SetWindowSize(120, 30);
-                // 4. 判断是否进入教程
-                if (isFirstTime)
-                {
-                    Thread.Sleep(2000);
-                    IntroTutorial();
-                }
-                
-                // 5. 闪2次Status，开始
-                for (var i = 0; i < 2; i++)
-                {
-                    Console.SetCursorPosition(Console.WindowWidth / 2 - 39,
-                                        Console.WindowHeight + Console.WindowTop - 1);
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.Write(@"Defend:50%[");
-                    Console.ResetColor();
-                    Console.Write(string.Empty.PadRight(25, '#'));
-                    Console.Write(string.Empty.PadRight(25, ' '));
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Write(@"]50%:Attack");
-                    Console.ResetColor();
-                    
-                    Thread.Sleep(400);
-                    
-                    Console.SetCursorPosition(Console.WindowWidth / 2 - 39,
-                        Console.WindowHeight + Console.WindowTop - 1);
-                    Console.Write(string.Empty.PadLeft(Console.WindowWidth,' '));
-                    
-                    Thread.Sleep(400);
-                }
-                
-                
-                var currentDefenceStrength = defenceStrength;
-                var defenceTask = new Task(() =>
-                {
-                    var prevInput = new ConsoleKeyInfo();
-                    while (!Source.Token.IsCancellationRequested)
-                    {
-                        CmLock.WaitOne();
-                        DefenceStatus =
-                            SituationHandler.OneClickDefence(ref prevInput, currentDefenceStrength, DefenceStatus);
-                    }
-                }, Source.Token);
-                CmLock.Set();
-                defenceTask.Start();
-            }
-
             internal void AttackAnalyzer(double incursionStrength) // 处理攻击的数据
             {
                 CmLock.WaitOne();
@@ -389,205 +612,5 @@ namespace WarzoneConnect.Player
                     IncursionStatus += incursionStrength;
             }
         }
-
-        private static void IntroTutorial()
-        {
-            // 1. 先走几个进度条
-            Console.ResetColor();
-            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Main_Sys,5);
-            Thread.Sleep(500);
-            Console.WriteLine();
-            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Package_Sender_Sys,5);
-            Thread.Sleep(500);
-            Console.WriteLine();
-            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Flow_Analyser_Sys,5);
-            Thread.Sleep(500);
-            Console.WriteLine();
-            WriteAnimation.PrintBarOnly(WAF_TextResource.Wafc_Pseudo_Gui_Sys,5);
-            Thread.Sleep(500);
-            Console.WriteLine();
-            
-            // 2.用帮助文档形式来介绍系统吧！
-            Console.Clear();
-            static void ShinyDialog(string title, string text) //text不能超过3行，74字符长度，最后一行不超过60
-            {
-                var textSplit = text.Replace("\r\n","\n").Split('\n');
-                var startingPointL = Console.WindowWidth / 2 - 40;
-                var startingPointT = Console.WindowHeight - 10;
-
-                Console.ResetColor();
-                
-                Console.SetCursorPosition(startingPointL,startingPointT);
-                Console.WriteLine(string.Empty.PadRight(30,'#'));
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine('#'+string.Empty.PadRight(28)+'#');
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine(@"#  "+title.PadRight(26-UsefulTools.GetLength(title)+title.Length)+string.Empty.PadLeft(51,'#'));
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine('#'+string.Empty.PadRight(78)+'#');
-                
-                Console.CursorLeft = startingPointL;
-                var startTPos = Console.CursorTop;
-                var startLPos = Console.CursorLeft+3;
-                Console.WriteLine('#'+string.Empty.PadRight(78)+'#');
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine('#'+string.Empty.PadRight(78)+'#');
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine(@"#  "+WAF_TextResource.Press_Enter.PadLeft(74-UsefulTools.GetLength(WAF_TextResource.Press_Enter)+WAF_TextResource.Press_Enter.Length)+@"  #");
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine('#'+string.Empty.PadRight(78)+'#');
-                
-                Console.CursorLeft = startingPointL;
-                Console.WriteLine(string.Empty.PadRight(80,'#'));
-                foreach (var str in textSplit)
-                {
-                    Console.SetCursorPosition(startLPos,startTPos);
-                    foreach (var ch in str.Trim())
-                    {
-                        Console.Write(ch);
-                        Thread.Sleep(20);
-                    }
-                    startTPos++;
-                    while(Console.ReadKey(true).Key!=ConsoleKey.Enter){}
-                    SendKeys.Flush();
-                }
-            }
-
-            static void ShinyOption(string text, string key, int lPos, int tPos, ConsoleColor color) //text不能超过2行，14字符长度，key为1行，10字符长度
-            {
-                Console.ForegroundColor = color;
-                var textSplit = text.Replace("\r\n","\n").Split('\n');
-                
-                Console.SetCursorPosition(lPos,tPos);
-                Console.WriteLine(string.Empty.PadRight(20,'#'));
-                
-                Console.CursorLeft=lPos;
-                Console.WriteLine('#'+string.Empty.PadRight(18)+'#');
-                
-                Console.CursorLeft=lPos;
-                var startTPos = Console.CursorTop;
-                var startLPos = Console.CursorLeft+3;
-                Console.WriteLine('#'+string.Empty.PadRight(18)+'#');
-                
-                Console.CursorLeft=lPos;
-                Console.WriteLine('#'+string.Empty.PadRight(18)+'#');
-                
-                Console.CursorLeft=lPos;
-                Console.WriteLine('#'+string.Empty.PadRight(18)+'#');
-                
-                Console.CursorLeft=lPos;
-                Console.Write('#');
-                Console.ResetColor();
-                Console.Write((string.Empty.PadLeft(9-UsefulTools.GetLength(key)/2)+key).PadRight(18-UsefulTools.GetLength(key)+key.Length));
-                Console.ForegroundColor = color;
-                Console.WriteLine('#');
-                
-                Console.CursorLeft=lPos;
-                Console.WriteLine('#'+string.Empty.PadRight(18)+'#');
-                
-                Console.CursorLeft=lPos;
-                Console.WriteLine(string.Empty.PadRight(20,'#'));
-
-                foreach (var str in textSplit)
-                {
-                    Console.SetCursorPosition(startLPos,startTPos);
-                    Console.Write(str.Trim());
-                    startTPos++;
-                }
-            }
-            Console.Clear();
-            while (true)
-            {
-                Console.Clear();
-                ShinyDialog(WAF_TextResource.Wafc_HelpTitle,WAF_TextResource.Wafc_HelpText);
-                ShinyOption(WAF_TextResource.Wafc_About,ConsoleKey.A.ToString(),10,8,ConsoleColor.Magenta);
-                ShinyOption(WAF_TextResource.Wafc_Manual,ConsoleKey.W.ToString(),50,5,ConsoleColor.DarkGreen);
-                ShinyOption(WAF_TextResource.Wafc_Exit,ConsoleKey.D.ToString(),90,8,ConsoleColor.DarkYellow);
-
-                ConsoleKey option1;
-                do
-                {
-                    option1 = Console.ReadKey(true).Key;
-                } while (option1 != ConsoleKey.A && option1 != ConsoleKey.W && option1 != ConsoleKey.D);
-                // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-                switch (option1)
-                { 
-                    case ConsoleKey.A: 
-                    {
-                        Console.Clear();
-                        ShinyDialog(WAF_TextResource.Wafc_HelpTitle,WAF_TextResource.Wafc_About_Text);
-                        break;
-                    }
-                    case ConsoleKey.W:
-                    {
-                        Console.Clear();
-                        ShinyDialog(WAF_TextResource.Wafc_HelpTitle,WAF_TextResource.Wafc_Manual_Text);
-                        break;
-                    }
-                    case ConsoleKey.D:
-                    {
-                        Console.Clear();
-                        ShinyDialog(WAF_TextResource.Wafc_HelpTitle,WAF_TextResource.Wafc_Exit_Text);
-                        ShinyOption(WAF_TextResource.Wafc_Exit_Yes,ConsoleKey.Y.ToString(),20,8,ConsoleColor.Magenta);
-                        ShinyOption(WAF_TextResource.Wafc_Exit_No,ConsoleKey.N.ToString(),80,8,ConsoleColor.DarkGreen);
-                        ConsoleKey option2;
-                        do
-                        {
-                            option2 = Console.ReadKey(true).Key;
-                        } while (option2 != ConsoleKey.Y && option2 != ConsoleKey.N);
-                        // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-                        switch (option2)
-                        {
-                            case ConsoleKey.Y:
-                            {
-                                return;
-                            }
-                            case ConsoleKey.N:
-                            {
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        
-        private static readonly Shell.Command InstallWafcCommand = new Shell.Command(
-            "inswafc",
-            (argList, host) =>
-            {
-                const string commandName = "inswafc";
-                if(argList.Count!=0)
-                    throw new CustomException.UnknownArgumentException(commandName);
-                try
-                {
-                    WaFirecracker test = ((dynamic) host).wafc;
-                    if (test.IsAcquiredMasterKey)
-                        Console.WriteLine(WAF_TextResource.Wafc_ExpAcquired, commandName);
-                    else
-                        Console.WriteLine(WAF_TextResource.Wafc_DefenceLevel, commandName,
-                            (test.DefenceStrength - 1) / 0.04);
-                }
-                catch
-                {
-                    ((dynamic) host).wafc=new WaFirecracker();
-                    Console.WriteLine(WAF_TextResource.Wafc_Installed, commandName);
-                }
-
-            },
-            WAF_TextResource.Inswafc_Help);
-        
-        internal static readonly Host.FileSystem.Exec WafcExec = new Host.FileSystem.Exec("WAFirecracker",
-            new List<Shell.Command>(new[]
-            {
-                InstallWafcCommand
-            }), true);
     }
 }

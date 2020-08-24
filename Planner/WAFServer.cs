@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WarzoneConnect.Player;
 using WarzoneConnect.Properties;
+
 // ReSharper disable IdentifierTypo
 // ReSharper disable CommentTypo
 
@@ -15,7 +16,7 @@ namespace WarzoneConnect.Planner
         {
             for (var index = 1; index < GameController.HostList.Count; index++)
             {
-                var wafStrength=UsefulTools.RetrieveHostInfo(rm.GetString("Host" + index), "waf");
+                var wafStrength = UsefulTools.RetrieveHostInfo(rm.GetString("Host" + index), "waf");
                 ((dynamic) GameController.HostList[index]).Firewall = wafStrength switch
                 {
                     "tough" => new WebApplicationFirewall(4, true),
@@ -29,34 +30,34 @@ namespace WarzoneConnect.Planner
         {
             try
             {
-                ((WebApplicationFirewall)tgt.Firewall).FlowAnalyser(host.Addr);
+                ((WebApplicationFirewall) tgt.Firewall).FlowAnalyser(host.Addr);
             }
             catch
             {
                 // 没有填WAF走这里
             }
         }
-        
+
         private static void CheckFirewallInDangerZone(dynamic tgt, Host host)
         {
             try
             {
-                if(((WebApplicationFirewall)tgt.Firewall).IsTough) 
-                    ((WebApplicationFirewall)tgt.Firewall).DangerZone(host.Addr);
+                if (((WebApplicationFirewall) tgt.Firewall).IsTough)
+                    ((WebApplicationFirewall) tgt.Firewall).DangerZone(host.Addr);
             }
             catch
             {
                 // 没有填WAF走这里
             }
         }
-        
+
         internal static void FirewallBootUp()
         {
             LinkServer.PacketCatch += CheckFirewall;
             AutoSploitServer.PacketCatch += CheckFirewallInDangerZone;
         }
-        
-        internal static bool IncursionSetup(string source,double incursionStrength)
+
+        internal static bool IncursionSetup(string source, double incursionStrength)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace WarzoneConnect.Planner
                 // 1. 黑屏
                 Console.Clear();
                 Thread.Sleep(5000);
-                
+
                 // 2. Unauthorized Connection Detected 红字
                 Console.ForegroundColor = ConsoleColor.Red;
                 for (var i = 0; i < 50; i++)
@@ -72,27 +73,29 @@ namespace WarzoneConnect.Planner
                     Console.WriteLine(WAF_TextResource.Unauthorized_Connection);
                     Thread.Sleep(50);
                 }
+
                 Console.ResetColor();
                 Thread.Sleep(2000);
                 Console.Clear();
                 Thread.Sleep(2000);
-                
+
                 // 3. 类似电脑蓝屏，启动防御（此处可参考E3 2077）
                 Console.BackgroundColor = ConsoleColor.DarkBlue;
                 Console.ForegroundColor = ConsoleColor.White;
                 for (var i = 0; i < Console.WindowHeight; i++)
                 {
-                    Console.SetCursorPosition(0,i);
-                    Console.Write(string.Empty.PadLeft(Console.WindowWidth,' '));
+                    Console.SetCursorPosition(0, i);
+                    Console.Write(string.Empty.PadLeft(Console.WindowWidth, ' '));
                 }
-                
-                Console.SetCursorPosition(0,0);
+
+                Console.SetCursorPosition(0, 0);
                 Console.WriteLine(WAF_TextResource.Bsod_Text);
-                
+
                 // 动画跳转至WAFC继续编写
-                
-                
-                var wafc = (WaFirecracker) ((dynamic) GameController.HostList.Find(h => h.Addr == source)).wafc; //如果没有wafc就输了
+
+
+                var wafc = (WaFirecracker) ((dynamic) GameController.HostList.Find(h => h.Addr == source))
+                    .wafc; //如果没有wafc就输了
                 if (wafc.IsAcquiredMasterKey)
                 {
                     Console.ResetColor();
@@ -100,8 +103,8 @@ namespace WarzoneConnect.Planner
                     Thread.Sleep(2000);
                     return true;
                 }
-                
-                var counter=new WaFirecracker.CounterMeasure(ref wafc.DefenceStrength, wafc.IsFirstTime); //这个使用主线程
+
+                var counter = new WaFirecracker.CounterMeasure(ref wafc.DefenceStrength, wafc.IsFirstTime); //这个使用主线程
 
                 // 开一个线程用来加攻击
                 var attackAnalyzerTask = new Task(() =>
@@ -113,10 +116,10 @@ namespace WarzoneConnect.Planner
                         Thread.Sleep(100);
                     }
                 }, counter.Source.Token);
-                
+
                 var getResultTask = new Task<bool>(() =>
                 {
-                    var result =  counter.GetResult();
+                    var result = counter.GetResult();
                     if (counter.IsGetMasterKey)
                         wafc.IsAcquiredMasterKey = true;
                     // ReSharper disable once AccessToDisposedClosure
@@ -138,14 +141,14 @@ namespace WarzoneConnect.Planner
                 {
                     BigFirework.YouDied();
                 }
+
                 Console.CursorVisible = true;
                 counter.CmLock.Dispose();
                 counter.Source.Dispose();
                 return getResultTask.Result;
             }
-            catch (Exception exception)
+            catch
             {
-                Console.WriteLine(exception.Message);
                 Thread.Sleep(2000);
                 Console.WriteLine(WAF_TextResource.Wafc_Failed);
                 Thread.Sleep(2000);

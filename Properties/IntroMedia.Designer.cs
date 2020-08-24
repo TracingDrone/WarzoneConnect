@@ -63,9 +63,27 @@ namespace WarzoneConnect.Properties {
         /// <summary>
         ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream activision {
+            get {
+                return ResourceManager.GetStream("activision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream Into_the_Furnace {
             get {
                 return ResourceManager.GetStream("Into_the_Furnace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream iw {
+            get {
+                return ResourceManager.GetStream("iw", resourceCulture);
             }
         }
         
@@ -90,21 +108,21 @@ namespace WarzoneConnect.Properties {
         }
         
         /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream test {
-            get {
-                return ResourceManager.GetStream("test", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap warzone_connect {
             get {
                 object obj = ResourceManager.GetObject("warzone_connect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream wz {
+            get {
+                return ResourceManager.GetStream("wz", resourceCulture);
             }
         }
     }

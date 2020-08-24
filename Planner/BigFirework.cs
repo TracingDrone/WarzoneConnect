@@ -14,7 +14,7 @@ namespace WarzoneConnect.Planner
         {
             // GameController.Save(); //挂前存个档
             var incursionDetect = DateTime.Now;
-            
+
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Red;
             var random = new Random();
@@ -33,29 +33,27 @@ namespace WarzoneConnect.Planner
                     } while (isWritten[w, h]);
 
                     Console.SetCursorPosition(w * 2, h);
-                    Console.Write(random.Next(2)+@" ");
+                    Console.Write(random.Next(2) + @" ");
                     isWritten[w, h] = true;
                 }
 
                 Thread.Sleep(100);
             }
-            
+
             var failSave = DateTime.Now;
-            
+
             GameController.Save();
-            if (File.Exists(@".\Save.resx")&&!File.Exists(@".\Save.bak"))
-            {
-                File.Move(@".\Save.resx",@".\Save.bak");
-            }
+            if (File.Exists(@".\Save.resx") && !File.Exists(@".\Save.bak")) File.Move(@".\Save.resx", @".\Save.bak");
             using var resx = new ResXResourceWriter(@".\Save.resx");
             resx.AddResource("RootKit", "BootUpHijacking");
             resx.Dispose();
-            
 
-            var asciiLength=0;
+
+            var asciiLength = 0;
             var calculateAsciiTask = Task.Run(() =>
             {
-                asciiLength = BigFirework_TextResource.YouDied.Replace("\r\n", "\n").Split('\n').Select(str => str.Length).Concat(new[] {asciiLength}).Max();
+                asciiLength = BigFirework_TextResource.YouDied.Replace("\r\n", "\n").Split('\n')
+                    .Select(str => str.Length).Concat(new[] {asciiLength}).Max();
             });
             Thread.Sleep(2000);
             calculateAsciiTask.Wait();
@@ -63,22 +61,23 @@ namespace WarzoneConnect.Planner
             var basicTPos = 5;
             foreach (var str in BigFirework_TextResource.YouDied.Replace("\r\n", "\n").Split('\n'))
             {
-                Console.SetCursorPosition((Console.WindowWidth-asciiLength)/2,basicTPos);
+                Console.SetCursorPosition((Console.WindowWidth - asciiLength) / 2, basicTPos);
                 Console.Write(str);
                 basicTPos++;
             }
+
             basicTPos++;
-            Console.SetCursorPosition((Console.WindowWidth-asciiLength)/2,basicTPos);
-            Console.Write(string.Empty.PadLeft(asciiLength,'#'));
+            Console.SetCursorPosition((Console.WindowWidth - asciiLength) / 2, basicTPos);
+            Console.Write(string.Empty.PadLeft(asciiLength, '#'));
             basicTPos += 2;
-            
-            Console.SetCursorPosition((Console.WindowWidth-asciiLength)/2,basicTPos);
-            Console.Write(string.Empty.PadLeft(asciiLength,'#'));
-            
+
+            Console.SetCursorPosition((Console.WindowWidth - asciiLength) / 2, basicTPos);
+            Console.Write(string.Empty.PadLeft(asciiLength, '#'));
+
             Console.ResetColor();
             Thread.Sleep(1000);
             var freesia = DateTime.Now;
-            
+
             using (var fileStream = new FileStream(@".\log.txt", FileMode.Append))
             {
                 using (var streamWriter = new StreamWriter(fileStream))
@@ -87,6 +86,7 @@ namespace WarzoneConnect.Planner
                     streamWriter.Flush();
                 }
             }
+
             Environment.Exit(0);
         }
     }

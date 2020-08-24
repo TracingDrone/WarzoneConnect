@@ -9,15 +9,38 @@ namespace WarzoneConnect.Player
     [Serializable]
     public class WebApplicationFirewall
     {
-        private static readonly List<NetworkFlow> NetworkStatistics=new List<NetworkFlow>();
+        private static readonly List<NetworkFlow> NetworkStatistics = new List<NetworkFlow>();
         private static bool _isDisabled;
         private double _incursionStrength;
         internal bool IsTough;
 
-        public  WebApplicationFirewall(double incursionStrength,bool isTough)
+        public WebApplicationFirewall(double incursionStrength, bool isTough)
         {
             _incursionStrength = incursionStrength;
-            this.IsTough = isTough;
+            IsTough = isTough;
+        }
+
+        internal void FlowAnalyser(string source)
+        {
+            if (_isDisabled)
+                return;
+            var nf = NetworkStatistics.Find(n => n.Src == source);
+            if (nf == null)
+            {
+                NetworkStatistics.Add(new NetworkFlow(source));
+            }
+            else
+            {
+                if (nf.Repeat == 0) nf.Cooldown();
+                nf.Repeat++;
+                if (nf.Repeat <= 10) return;
+                _isDisabled = WafServer.IncursionSetup(source, _incursionStrength);
+            }
+        }
+
+        internal void DangerZone(string source)
+        {
+            _isDisabled = WafServer.IncursionSetup(source, _incursionStrength);
         }
 
         private class NetworkFlow
@@ -39,30 +62,6 @@ namespace WarzoneConnect.Player
                     NetworkStatistics.Remove(this);
                 }).Start();
             }
-        }
-
-        internal void FlowAnalyser(string source)
-        {
-            if(_isDisabled)
-                return;
-            var nf=NetworkStatistics.Find(n => n.Src == source);
-            if(nf==null)
-                NetworkStatistics.Add(new NetworkFlow(source));
-            else
-            {
-                if (nf.Repeat==0)
-                {
-                    nf.Cooldown();
-                }
-                nf.Repeat++;
-                if (nf.Repeat <= 10) return;
-                _isDisabled = WafServer.IncursionSetup(source,_incursionStrength);
-            }
-        }
-
-        internal void DangerZone(string source)
-        {
-            _isDisabled = WafServer.IncursionSetup(source,_incursionStrength);
         }
     }
 }

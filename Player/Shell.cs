@@ -12,24 +12,25 @@ namespace WarzoneConnect.Player
     {
         internal readonly Host ThisHost;
 
+        internal Dictionary<string, object> Prop = new Dictionary<string, object>(); //Properties
+
         internal Shell(Host host)
         {
             ThisHost = host;
         }
-        
-        internal Dictionary<string,object> Prop=new Dictionary<string, object>(); //Properties
-        public override bool TryGetMember(GetMemberBinder binder, out object result) 
+
+        internal List<Command> CommandList { get; set; } = new List<Command>(); //Shell的指令
+
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             return Prop.TryGetValue(binder.Name, out result);
         }
-        
+
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             Prop[binder.Name] = value;
             return true;
         }
-
-        internal List<Command> CommandList { get; set; } = new List<Command>(); //Shell的指令
 
         internal virtual void PreInputPrint()
         {
@@ -86,8 +87,8 @@ namespace WarzoneConnect.Player
         {
             try
             {
-                var com=CommandList.Find(c => c.Name == commandString);
-                if (com==null)
+                var com = CommandList.Find(c => c.Name == commandString);
+                if (com == null)
                     throw new UnknownCommandException();
                 com.Execute(argList, ThisHost);
             }
@@ -270,7 +271,7 @@ namespace WarzoneConnect.Player
         //     }
         // }
 
-        
+
         // private void CopyAction(IReadOnlyList<string> argList) //cp
         // {
         //     var backupDir = _thisHost.Fs.CurrentDir;
@@ -505,16 +506,16 @@ namespace WarzoneConnect.Player
         [Serializable]
         internal class Command
         {
+            private readonly Action<List<string>, Host> _commandAction;
+
             internal Command(string name, Action<List<string>, Host> commandAction, string helpText)
             {
                 Name = name;
                 _commandAction = commandAction;
                 HelpText = helpText;
             }
-            
-            internal string Name { get; }
 
-            private readonly Action<List<string>, Host> _commandAction;
+            internal string Name { get; }
 
             internal string HelpText { get; }
 
@@ -522,12 +523,13 @@ namespace WarzoneConnect.Player
             {
                 host.Sh.CommandList.Add(this);
             }
+
             internal virtual void Execute(List<string> argList, Host host)
             {
                 _commandAction(argList, host);
             }
         }
-        
+
         private class NameConflictException : Exception
         {
             public override string Message { get; } = Shell_TextResource.NameConflict;
@@ -566,9 +568,6 @@ namespace WarzoneConnect.Player
 
     internal static class ShellCommandDict
     {
-        internal delegate void FileIdentify(Host.FileSystem.File file); //留给PlotObserver执行自动存档
-        internal static event FileIdentify FileIdentifier;
-        
         internal static readonly Shell.Command ChangeDirCommand = new Shell.Command(
             "cd",
             (argList, host) =>
@@ -654,6 +653,7 @@ namespace WarzoneConnect.Player
                                 Console.BackgroundColor = ConsoleColor.Blue;
                                 break;
                         }
+
                         FileIdentifier?.Invoke(file);
                         Console.Write(file.Name);
                         Console.ResetColor();
@@ -786,14 +786,13 @@ namespace WarzoneConnect.Player
                                 throw new CustomException.FileNotExistException(commandName);
                             }
                     }
+
                     if (oldName == string.Empty) //没有输入文件名（arg0以斜杠结尾）
                         throw new CustomException.UnknownArgumentException();
-                    
+
                     if (host.Fs.CurrentDir.Transfer(oldName) == null) //没有找到文件
-                    {
                         throw new CustomException.FileNotExistException(commandName);
-                    }
-                    
+
                     var cpFile = host.Fs.CurrentDir.Transfer(oldName);
 
                     host.Fs.CurrentDir = backupDir;
@@ -967,6 +966,7 @@ namespace WarzoneConnect.Player
                                 throw new CustomException.FileNotExistException(commandName);
                             }
                     }
+
                     if (oldName == string.Empty) //没有输入文件名（arg0以斜杠结尾）
                         throw new CustomException.UnknownArgumentException();
                     host.Fs.CurrentDir.Delete(oldName);
@@ -981,7 +981,7 @@ namespace WarzoneConnect.Player
                 }
             },
             Shell_TextResource.mv);
-        
+
         internal static readonly Shell.Command InstallCommand = new Shell.Command(
             "install",
             (argList, host) =>
@@ -1030,6 +1030,7 @@ namespace WarzoneConnect.Player
                                 throw new CustomException.ExecInstalledException(exec1
                                     .OriginName);
                             }
+
                             break;
                         default:
                             throw new CustomException.MismatchedFormatException(commandName); //格式错误
@@ -1043,7 +1044,7 @@ namespace WarzoneConnect.Player
                 }
             },
             Shell_TextResource.install);
-        
+
         internal static readonly Shell.Command ConcatenateCommand = new Shell.Command(
             "cat",
             (argList, host) =>
@@ -1084,11 +1085,11 @@ namespace WarzoneConnect.Player
                 }
                 finally
                 {
-                   host.Fs.CurrentDir = backupDir;
+                    host.Fs.CurrentDir = backupDir;
                 }
             },
             Shell_TextResource.cat);
-        
+
         internal static readonly Shell.Command HelpCommand = new Shell.Command(
             "help",
             (argList, host) =>
@@ -1109,8 +1110,8 @@ namespace WarzoneConnect.Player
                         break;
                 }
 
-                Console.WriteLine(host.Info+'\n');
-                foreach (var command in host.Sh.CommandList) 
+                Console.WriteLine(host.Info + '\n');
+                foreach (var command in host.Sh.CommandList)
                     Console.WriteLine(command.HelpText);
             },
             Shell_TextResource.help);
@@ -1125,7 +1126,7 @@ namespace WarzoneConnect.Player
                 GameController.Save();
             },
             Shell_TextResource.save);
-        
+
         internal static readonly Shell.Command LoadCommand = new Shell.Command(
             "load",
             (argList, host) =>
@@ -1136,5 +1137,9 @@ namespace WarzoneConnect.Player
                 GameController.Load();
             },
             Shell_TextResource.load);
+
+        internal static event FileIdentify FileIdentifier;
+
+        internal delegate void FileIdentify(Host.FileSystem.File file); //留给PlotObserver执行自动存档
     }
 }

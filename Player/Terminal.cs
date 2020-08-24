@@ -4,8 +4,13 @@ namespace WarzoneConnect.Player
 {
     internal sealed class Terminal
     {
-        internal Terminal(Shell sh) => _thisShell = sh;
         private readonly Shell _thisShell;
+
+        internal Terminal(Shell sh)
+        {
+            _thisShell = sh;
+        }
+
         internal void Open()
         {
             while (true)
@@ -13,6 +18,7 @@ namespace WarzoneConnect.Player
                 _thisShell.PreInputPrint();
                 _thisShell.CommandIdentify(Console.ReadLine());
             }
+
             // ReSharper disable once FunctionNeverReturns
         }
     }

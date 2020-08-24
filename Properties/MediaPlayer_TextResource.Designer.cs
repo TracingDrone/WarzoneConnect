@@ -77,5 +77,14 @@ namespace WarzoneConnect.Properties {
                 return ResourceManager.GetString("play", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 加载视频中······ 的本地化字符串。
+        /// </summary>
+        internal static string VideoLoading {
+            get {
+                return ResourceManager.GetString("VideoLoading", resourceCulture);
+            }
+        }
     }
 }

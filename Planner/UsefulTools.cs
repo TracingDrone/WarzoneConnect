@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WarzoneConnect.Planner
 {
@@ -15,7 +16,6 @@ namespace WarzoneConnect.Planner
             {
                 return null;
             }
-            
         }
 
         internal static int AnalyseSystem(string info) //获取系统信息
@@ -29,7 +29,7 @@ namespace WarzoneConnect.Planner
 
         internal static int GetLength(string input) //兼容中文的string.length
         {
-            return System.Text.Encoding.Default.GetBytes(input).Length;
+            return Encoding.Default.GetBytes(input).Length;
         }
     }
 }

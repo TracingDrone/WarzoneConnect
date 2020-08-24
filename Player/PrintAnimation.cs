@@ -6,17 +6,31 @@ namespace WarzoneConnect.Player
 {
     internal static class WriteAnimation //弄动画特效的
     {
+        internal static void PrintWithBoth(string sen, int second, string art, params ConsoleColor[] color)
+        {
+            var rpb = new RandomProgressBar();
+            var aa = new AsciiAnimation();
+
+            aa.DrawOutline(art);
+            rpb.TopPosAfterAa = aa.InitTPos;
+            rpb.Pa += aa.PrintColor;
+            rpb.Start(sen, second, color);
+        }
+
+        internal static void PrintBarOnly(string sen, int second, params ConsoleColor[] color)
+        {
+            new RandomProgressBar().Start(sen, second, color);
+        }
+
         private class RandomProgressBar
         {
-            internal int TopPosAfterAa; 
-            
-            internal delegate void PrintAsc(int progress, params ConsoleColor[] color); //RGP为主，ASC为辅
+            internal int TopPosAfterAa;
             internal event PrintAsc Pa;
 
             internal void Start(string sen, int second, params ConsoleColor[] color)
             {
                 Console.ResetColor();
-                
+
                 var printColor = Console.ForegroundColor;
                 var progress = 0;
 
@@ -24,12 +38,12 @@ namespace WarzoneConnect.Player
                     printColor = color[0];
                 var tPos = Console.CursorTop;
                 if (Pa != null)
-                    tPos = TopPosAfterAa+2;
-                
+                    tPos = TopPosAfterAa + 2;
+
                 Console.SetCursorPosition(0, tPos);
                 Console.Write($@"{sen} [");
                 var curLPos = sen.Length + 2;
-                
+
                 var random = new Random();
                 while (progress <= second * 100)
                 {
@@ -45,9 +59,9 @@ namespace WarzoneConnect.Player
                     Console.Write($@"] {progress / second}%");
                     Console.SetCursorPosition(curLPos, tPos);
                     progress += random.Next(6, 15);
-                    
+
                     Pa?.Invoke(progress / second, printColor);
-                    
+
                     Thread.Sleep(100);
                 }
 
@@ -61,13 +75,16 @@ namespace WarzoneConnect.Player
 
                 Console.Write(@"] Completed!");
             }
+
+            internal delegate void PrintAsc(int progress, params ConsoleColor[] color); //RGP为主，ASC为辅
         }
 
         private class AsciiAnimation
         {
             private readonly List<List<char>> _charSheet = new List<List<char>> {new List<char>()};
-            internal int InitTPos;
             private int _v, _h;
+            internal int InitTPos;
+
             internal void DrawOutline(string art)
             {
                 foreach (var ch in art)
@@ -91,19 +108,20 @@ namespace WarzoneConnect.Player
                     if (i >= _charSheet[j].Count) continue;
                     Console.Write(_charSheet[j][i] == '#' ? ' ' : _charSheet[j][i]);
                 }
+
                 InitTPos = Console.CursorTop;
             }
 
-            internal void PrintColor(int progress,params ConsoleColor[] color)
+            internal void PrintColor(int progress, params ConsoleColor[] color)
             {
                 Console.ResetColor();
-                
+
                 var printColor = Console.ForegroundColor;
 
                 if (color.Length == 1)
                     printColor = color[0];
-                
-                for (var i = 0; i + 1 / _h < progress/2;i++) 
+
+                for (var i = 0; i + 1 / _h < progress / 2; i++)
                 for (var j = 0; j < _v; j++)
                     if (i < _charSheet[j].Count)
                     {
@@ -122,22 +140,6 @@ namespace WarzoneConnect.Player
             }
         }
 
-        internal static void PrintWithBoth(string sen, int second, string art, params ConsoleColor[] color)
-        {
-            var rpb = new RandomProgressBar();
-            var aa = new AsciiAnimation();
-            
-            aa.DrawOutline(art);
-            rpb.TopPosAfterAa = aa.InitTPos;
-            rpb.Pa += aa.PrintColor;
-            rpb.Start(sen,second,color);
-        }
-        
-        internal static void PrintBarOnly(string sen, int second,  params ConsoleColor[] color)
-        {
-            new RandomProgressBar().Start(sen,second,color);
-        }
-        
         // internal static void
         //     old_RandomProgressBar(object package) //new object[] {string sen,int second,bool withAA(, ConsoleColor color)}
         // {
