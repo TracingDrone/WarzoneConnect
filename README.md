@@ -14,4 +14,4 @@
 * 扣人心弦的剧情故事
   在多元宇宙游历过无数条世界线的主人公，返回自己的故乡Verdansk时，却发现故乡已被极端组织Al-Qatala占领，自己的妻儿只能住在Tavorsk的写字楼楼顶狗窝，整天被楼顶的HDR响声骚扰！一声令下，借助“Kronorium”的力量，《使命⚪唤》历代角色尽数唤来！只差一声令下，万千精锐战士必将烧毁这座城市！~~等等，好像有点不太对~~
 
-  点击此处了解更多详情
+  [点击此处了解更多详情](https://github.com/TokinoLynx/WarzoneConnect/blob/master/README_Insider.md)
